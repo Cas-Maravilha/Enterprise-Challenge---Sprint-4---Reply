@@ -1,0 +1,48 @@
+{
+  "simulacao": {
+    "inicio": "2025-10-02T14:25:29.625095",
+    "fim": "2025-10-02T14:25:38.642868",
+    "duracao_segundos": 10,
+    "frequencia_hz": 1,
+    "total_leituras": 10,
+    "leituras_por_segundo": 1.0
+  },
+  "sensores_simulados": [
+    "DHT22",
+    "LDR",
+    "PIR",
+    "BME280"
+  ],
+  "qualidade_dados": {
+    "excelente": 10,
+    "boa": 0,
+    "regular": 0,
+    "ruim": 0
+  },
+  "estatisticas": {
+    "temperatura": {
+      "media": 25.44,
+      "min": 22.1,
+      "max": 28.2,
+      "std": 1.85
+    },
+    "umidade": {
+      "media": 58.75,
+      "min": 55.1,
+      "max": 66.6,
+      "std": 3.55
+    },
+    "luminosidade": {
+      "media": 673.3,
+      "min": 624,
+      "max": 719,
+      "std": 28.01
+    },
+    "pressao": {
+      "media": 1014.52,
+      "min": 1011.63,
+      "max": 1018.45,
+      "std": 1.86
+    }
+  }
+}

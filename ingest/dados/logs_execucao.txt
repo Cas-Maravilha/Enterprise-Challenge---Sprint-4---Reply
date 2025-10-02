@@ -1,0 +1,89 @@
+2024-01-11 14:30:00,000 - INFO - === Sistema IoT Monitoring - Coleta de Dados ===
+2024-01-11 14:30:00,000 - INFO - Enterprise Challenge Sprint 3 - Reply
+2024-01-11 14:30:00,000 - INFO - ================================================
+2024-01-11 14:30:00,000 - INFO - Iniciando coleta de dados via simulação...
+2024-01-11 14:30:00,000 - INFO - Duração: 60 segundos
+2024-01-11 14:30:00,000 - INFO - Frequência: 1 Hz
+2024-01-11 14:30:00,000 - INFO - Sensores: DHT22, LDR, PIR, BME280
+2024-01-11 14:30:00,000 - INFO - 
+2024-01-11 14:30:00,000 - INFO - Iniciando simulação de dados...
+2024-01-11 14:30:00,000 - INFO - Duração: 60 segundos
+2024-01-11 14:30:00,000 - INFO - Frequência: 1 Hz
+2024-01-11 14:30:00,000 - INFO - Sensores: DHT22, LDR, PIR, BME280
+2024-01-11 14:30:00,000 - INFO - Leitura #1 gerada
+2024-01-11 14:30:01,000 - INFO - Leitura #2 gerada
+2024-01-11 14:30:02,000 - INFO - Leitura #3 gerada
+2024-01-11 14:30:03,000 - INFO - Leitura #4 gerada
+2024-01-11 14:30:04,000 - INFO - Leitura #5 gerada
+2024-01-11 14:30:05,000 - INFO - Leitura #6 gerada
+2024-01-11 14:30:06,000 - INFO - Leitura #7 gerada
+2024-01-11 14:30:07,000 - INFO - Leitura #8 gerada
+2024-01-11 14:30:08,000 - INFO - Leitura #9 gerada
+2024-01-11 14:30:09,000 - INFO - Leitura #10 gerada
+2024-01-11 14:30:10,000 - INFO - Leitura #11 gerada
+2024-01-11 14:30:11,000 - INFO - Leitura #12 gerada
+2024-01-11 14:30:12,000 - INFO - Leitura #13 gerada
+2024-01-11 14:30:13,000 - INFO - Leitura #14 gerada
+2024-01-11 14:30:14,000 - INFO - Leitura #15 gerada
+2024-01-11 14:30:15,000 - INFO - Leitura #16 gerada
+2024-01-11 14:30:16,000 - INFO - Leitura #17 gerada
+2024-01-11 14:30:17,000 - INFO - Leitura #18 gerada
+2024-01-11 14:30:18,000 - INFO - Leitura #19 gerada
+2024-01-11 14:30:19,000 - INFO - Leitura #20 gerada
+2024-01-11 14:30:20,000 - INFO - Leitura #21 gerada
+2024-01-11 14:30:21,000 - INFO - Leitura #22 gerada
+2024-01-11 14:30:22,000 - INFO - Leitura #23 gerada
+2024-01-11 14:30:23,000 - INFO - Leitura #24 gerada
+2024-01-11 14:30:24,000 - INFO - Leitura #25 gerada
+2024-01-11 14:30:25,000 - INFO - Leitura #26 gerada
+2024-01-11 14:30:26,000 - INFO - Leitura #27 gerada
+2024-01-11 14:30:27,000 - INFO - Leitura #28 gerada
+2024-01-11 14:30:28,000 - INFO - Leitura #29 gerada
+2024-01-11 14:30:29,000 - INFO - Leitura #30 gerada
+2024-01-11 14:30:30,000 - INFO - Leitura #31 gerada
+2024-01-11 14:30:31,000 - INFO - Leitura #32 gerada
+2024-01-11 14:30:32,000 - INFO - Leitura #33 gerada
+2024-01-11 14:30:33,000 - INFO - Leitura #34 gerada
+2024-01-11 14:30:34,000 - INFO - Leitura #35 gerada
+2024-01-11 14:30:35,000 - INFO - Leitura #36 gerada
+2024-01-11 14:30:36,000 - INFO - Leitura #37 gerada
+2024-01-11 14:30:37,000 - INFO - Leitura #38 gerada
+2024-01-11 14:30:38,000 - INFO - Leitura #39 gerada
+2024-01-11 14:30:39,000 - INFO - Leitura #40 gerada
+2024-01-11 14:30:40,000 - INFO - Leitura #41 gerada
+2024-01-11 14:30:41,000 - INFO - Leitura #42 gerada
+2024-01-11 14:30:42,000 - INFO - Leitura #43 gerada
+2024-01-11 14:30:43,000 - INFO - Leitura #44 gerada
+2024-01-11 14:30:44,000 - INFO - Leitura #45 gerada
+2024-01-11 14:30:45,000 - INFO - Leitura #46 gerada
+2024-01-11 14:30:46,000 - INFO - Leitura #47 gerada
+2024-01-11 14:30:47,000 - INFO - Leitura #48 gerada
+2024-01-11 14:30:48,000 - INFO - Leitura #49 gerada
+2024-01-11 14:30:49,000 - INFO - Leitura #50 gerada
+2024-01-11 14:30:50,000 - INFO - Leitura #51 gerada
+2024-01-11 14:30:51,000 - INFO - Leitura #52 gerada
+2024-01-11 14:30:52,000 - INFO - Leitura #53 gerada
+2024-01-11 14:30:54,000 - INFO - Leitura #54 gerada
+2024-01-11 14:30:55,000 - INFO - Leitura #55 gerada
+2024-01-11 14:30:56,000 - INFO - Leitura #56 gerada
+2024-01-11 14:30:57,000 - INFO - Leitura #57 gerada
+2024-01-11 14:30:58,000 - INFO - Leitura #58 gerada
+2024-01-11 14:30:59,000 - INFO - Leitura #59 gerada
+2024-01-11 14:31:00,000 - INFO - Simulação concluída! Total de leituras: 60
+2024-01-11 14:31:00,000 - INFO - Dados salvos em CSV: ingest/dados/dados_simulados.csv
+2024-01-11 14:31:00,000 - INFO - Dados salvos em JSON: ingest/dados/dados_simulados.json
+2024-01-11 14:31:00,000 - INFO - Relatório gerado: ingest/dados/relatorio_simulacao.json
+2024-01-11 14:31:00,000 - INFO - 
+2024-01-11 14:31:00,000 - INFO - ========================================
+2024-01-11 14:31:00,000 - INFO - SIMULAÇÃO CONCLUÍDA COM SUCESSO!
+2024-01-11 14:31:00,000 - INFO - ========================================
+2024-01-11 14:31:00,000 - INFO - 
+2024-01-11 14:31:00,000 - INFO - Dados simulados salvos em:
+2024-01-11 14:31:00,000 - INFO -   - ingest/dados/dados_simulados.csv
+2024-01-11 14:31:00,000 - INFO -   - ingest/dados/dados_simulados.json
+2024-01-11 14:31:00,000 - INFO -   - ingest/dados/relatorio_simulacao.json
+2024-01-11 14:31:00,000 - INFO -   - ingest/dados/logs_simulador.txt
+2024-01-11 14:31:00,000 - INFO - 
+2024-01-11 14:31:00,000 - INFO - ========================================
+2024-01-11 14:31:00,000 - INFO - PROCESSO CONCLUÍDO
+2024-01-11 14:31:00,000 - INFO - ========================================

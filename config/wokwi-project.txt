@@ -1,0 +1,17 @@
+Simulação de Sistema de Monitoramento Industrial com ESP32
+
+Este projeto simula um sistema de monitoramento industrial com ESP32 e 4 tipos de sensores:
+
+1. Sensor de temperatura PT100 (simulado com potenciômetro)
+2. Sensor de pressão 4-20mA (simulado com potenciômetro)
+3. Sensor de vibração (simulado com joystick analógico)
+4. Sensor de nível ultrassônico HC-SR04
+
+Os dados são coletados e enviados para um broker MQTT público (HiveMQ).
+
+Controles:
+- Switch 1: Simular falha de sensor
+- Switch 2: Simular falha de rede
+- LED verde: Indica envio de dados (pisca)
+
+Tópico MQTT: industrial/sensors/data

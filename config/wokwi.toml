@@ -1,0 +1,23 @@
+[wokwi]
+version = 1
+firmware = "simulacao_esp32.ino"
+elf = "build/simulacao_esp32.elf"
+
+[[pins]]
+name = "DHT22"
+pin = 4
+
+[[pins]]
+name = "LDR"
+pin = 36
+
+[[pins]]
+name = "PIR"
+pin = 5
+
+[[pins]]
+name = "LED"
+pin = 2
+
+[serial]
+baud_rate = 115200 

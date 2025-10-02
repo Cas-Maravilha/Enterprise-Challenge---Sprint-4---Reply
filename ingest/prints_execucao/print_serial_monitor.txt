@@ -1,0 +1,160 @@
+=== Sistema IoT Monitoring - ESP32 Serial Monitor ===
+Enterprise Challenge Sprint 3 - Reply
+=====================================
+
+[14:30:00] === Sistema IoT Monitoring - ESP32 ===
+[14:30:00] Enterprise Challenge Sprint 3 - Reply
+[14:30:00] =====================================
+[14:30:00] Inicializando sensores...
+[14:30:00] ✓ DHT22 inicializado
+[14:30:00] ✓ BME280 inicializado
+[14:30:00] ✓ Todos os sensores inicializados
+[14:30:00] 
+[14:30:00] Conectando ao WiFi: SEU_WIFI_SSID
+[14:30:00] ................
+[14:30:00] ✓ WiFi conectado!
+[14:30:00] IP: 192.168.1.100
+[14:30:00] 
+[14:30:00] Conectando ao MQTT...
+[14:30:00] ✓ MQTT conectado!
+[14:30:00] Sistema inicializado com sucesso!
+[14:30:00] Iniciando coleta de dados...
+[14:30:00] 
+
+[14:30:00] {"device":"ESP32-IoT-Monitoring","timestamp":1705062600000,"sensors":{"DHT22":{"temperature":25.5,"humidity":60.0},"LDR":{"light":450},"PIR":{"motion":0},"BME280":{"pressure":1013.25}},"quality":"excelente","read_count":0}
+[14:30:00] --- Dados Coletados ---
+[14:30:00] Leitura #0 | Tempo: 1705062600000ms
+[14:30:00] 🌡️  Temperatura: 25.5°C
+[14:30:00] 💧 Umidade: 60.0%
+[14:30:00] 💡 Luminosidade: 450 lux
+[14:30:00] 👁️  Movimento: NÃO
+[14:30:00] 🌬️  Pressão: 1013.25 hPa
+[14:30:00] ⭐ Qualidade: excelente
+[14:30:00] ----------------------
+
+[14:30:01] {"device":"ESP32-IoT-Monitoring","timestamp":1705062601000,"sensors":{"DHT22":{"temperature":25.7,"humidity":59.8},"LDR":{"light":455},"PIR":{"motion":0},"BME280":{"pressure":1013.30}},"quality":"excelente","read_count":1}
+[14:30:01] --- Dados Coletados ---
+[14:30:01] Leitura #1 | Tempo: 1705062601000ms
+[14:30:01] 🌡️  Temperatura: 25.7°C
+[14:30:01] 💧 Umidade: 59.8%
+[14:30:01] 💡 Luminosidade: 455 lux
+[14:30:01] 👁️  Movimento: NÃO
+[14:30:01] 🌬️  Pressão: 1013.30 hPa
+[14:30:01] ⭐ Qualidade: excelente
+[14:30:01] ----------------------
+
+[14:30:02] {"device":"ESP32-IoT-Monitoring","timestamp":1705062602000,"sensors":{"DHT22":{"temperature":25.3,"humidity":60.2},"LDR":{"light":448},"PIR":{"motion":0},"BME280":{"pressure":1013.20}},"quality":"excelente","read_count":2}
+[14:30:02] --- Dados Coletados ---
+[14:30:02] Leitura #2 | Tempo: 1705062602000ms
+[14:30:02] 🌡️  Temperatura: 25.3°C
+[14:30:02] 💧 Umidade: 60.2%
+[14:30:02] 💡 Luminosidade: 448 lux
+[14:30:02] 👁️  Movimento: NÃO
+[14:30:02] 🌬️  Pressão: 1013.20 hPa
+[14:30:02] ⭐ Qualidade: excelente
+[14:30:02] ----------------------
+
+[14:30:03] {"device":"ESP32-IoT-Monitoring","timestamp":1705062603000,"sensors":{"DHT22":{"temperature":25.8,"humidity":59.5},"LDR":{"light":462},"PIR":{"motion":1},"BME280":{"pressure":1013.35}},"quality":"excelente","read_count":3}
+[14:30:03] --- Dados Coletados ---
+[14:30:03] Leitura #3 | Tempo: 1705062603000ms
+[14:30:03] 🌡️  Temperatura: 25.8°C
+[14:30:03] 💧 Umidade: 59.5%
+[14:30:03] 💡 Luminosidade: 462 lux
+[14:30:03] 👁️  Movimento: SIM
+[14:30:03] 🌬️  Pressão: 1013.35 hPa
+[14:30:03] ⭐ Qualidade: excelente
+[14:30:03] ----------------------
+
+[14:30:04] {"device":"ESP32-IoT-Monitoring","timestamp":1705062604000,"sensors":{"DHT22":{"temperature":25.6,"humidity":60.1},"LDR":{"light":451},"PIR":{"motion":1},"BME280":{"pressure":1013.28}},"quality":"excelente","read_count":4}
+[14:30:04] --- Dados Coletados ---
+[14:30:04] Leitura #4 | Tempo: 1705062604000ms
+[14:30:04] 🌡️  Temperatura: 25.6°C
+[14:30:04] 💧 Umidade: 60.1%
+[14:30:04] 💡 Luminosidade: 451 lux
+[14:30:04] 👁️  Movimento: SIM
+[14:30:04] 🌬️  Pressão: 1013.28 hPa
+[14:30:04] ⭐ Qualidade: excelente
+[14:30:04] ----------------------
+
+[14:30:05] {"device":"ESP32-IoT-Monitoring","timestamp":1705062605000,"sensors":{"DHT22":{"temperature":25.4,"humidity":60.3},"LDR":{"light":447},"PIR":{"motion":0},"BME280":{"pressure":1013.22}},"quality":"excelente","read_count":5}
+[14:30:05] --- Dados Coletados ---
+[14:30:05] Leitura #5 | Tempo: 1705062605000ms
+[14:30:05] 🌡️  Temperatura: 25.4°C
+[14:30:05] 💧 Umidade: 60.3%
+[14:30:05] 💡 Luminosidade: 447 lux
+[14:30:05] 👁️  Movimento: NÃO
+[14:30:05] 🌬️  Pressão: 1013.22 hPa
+[14:30:05] ⭐ Qualidade: excelente
+[14:30:05] ----------------------
+
+[14:30:06] {"device":"ESP32-IoT-Monitoring","timestamp":1705062606000,"sensors":{"DHT22":{"temperature":25.9,"humidity":59.7},"LDR":{"light":459},"PIR":{"motion":0},"BME280":{"pressure":1013.40}},"quality":"excelente","read_count":6}
+[14:30:06] --- Dados Coletados ---
+[14:30:06] Leitura #6 | Tempo: 1705062606000ms
+[14:30:06] 🌡️  Temperatura: 25.9°C
+[14:30:06] 💧 Umidade: 59.7%
+[14:30:06] 💡 Luminosidade: 459 lux
+[14:30:06] 👁️  Movimento: NÃO
+[14:30:06] 🌬️  Pressão: 1013.40 hPa
+[14:30:06] ⭐ Qualidade: excelente
+[14:30:06] ----------------------
+
+[14:30:07] {"device":"ESP32-IoT-Monitoring","timestamp":1705062607000,"sensors":{"DHT22":{"temperature":25.2,"humidity":60.5},"LDR":{"light":444},"PIR":{"motion":0},"BME280":{"pressure":1013.15}},"quality":"excelente","read_count":7}
+[14:30:07] --- Dados Coletados ---
+[14:30:07] Leitura #7 | Tempo: 1705062607000ms
+[14:30:07] 🌡️  Temperatura: 25.2°C
+[14:30:07] 💧 Umidade: 60.5%
+[14:30:07] 💡 Luminosidade: 444 lux
+[14:30:07] 👁️  Movimento: NÃO
+[14:30:07] 🌬️  Pressão: 1013.15 hPa
+[14:30:07] ⭐ Qualidade: excelente
+[14:30:07] ----------------------
+
+[14:30:08] {"device":"ESP32-IoT-Monitoring","timestamp":1705062608000,"sensors":{"DHT22":{"temperature":25.7,"humidity":59.9},"LDR":{"light":456},"PIR":{"motion":1},"BME280":{"pressure":1013.32}},"quality":"excelente","read_count":8}
+[14:30:08] --- Dados Coletados ---
+[14:30:08] Leitura #8 | Tempo: 1705062608000ms
+[14:30:08] 🌡️  Temperatura: 25.7°C
+[14:30:08] 💧 Umidade: 59.9%
+[14:30:08] 💡 Luminosidade: 456 lux
+[14:30:08] 👁️  Movimento: SIM
+[14:30:08] 🌬️  Pressão: 1013.32 hPa
+[14:30:08] ⭐ Qualidade: excelente
+[14:30:08] ----------------------
+
+[14:30:09] {"device":"ESP32-IoT-Monitoring","timestamp":1705062609000,"sensors":{"DHT22":{"temperature":25.5,"humidity":60.0},"LDR":{"light":452},"PIR":{"motion":1},"BME280":{"pressure":1013.25}},"quality":"excelente","read_count":9}
+[14:30:09] --- Dados Coletados ---
+[14:30:09] Leitura #9 | Tempo: 1705062609000ms
+[14:30:09] 🌡️  Temperatura: 25.5°C
+[14:30:09] 💧 Umidade: 60.0%
+[14:30:09] 💡 Luminosidade: 452 lux
+[14:30:09] 👁️  Movimento: SIM
+[14:30:09] 🌬️  Pressão: 1013.25 hPa
+[14:30:09] ⭐ Qualidade: excelente
+[14:30:09] ----------------------
+
+[14:30:10] {"device":"ESP32-IoT-Monitoring","timestamp":1705062610000,"sensors":{"DHT22":{"temperature":25.6,"humidity":59.8},"LDR":{"light":458},"PIR":{"motion":0},"BME280":{"pressure":1013.28}},"quality":"excelente","read_count":10}
+[14:30:10] --- Dados Coletados ---
+[14:30:10] Leitura #10 | Tempo: 1705062610000ms
+[14:30:10] 🌡️  Temperatura: 25.6°C
+[14:30:10] 💧 Umidade: 59.8%
+[14:30:10] 💡 Luminosidade: 458 lux
+[14:30:10] 👁️  Movimento: NÃO
+[14:30:10] 🌬️  Pressão: 1013.28 hPa
+[14:30:10] ⭐ Qualidade: excelente
+[14:30:10] ----------------------
+
+[14:30:11] Coleta de dados concluída!
+[14:30:11] Total de leituras: 11
+[14:30:11] Sistema em modo de espera...
+
+=== RESUMO DA EXECUÇÃO ===
+- Dispositivo: ESP32-IoT-Monitoring
+- Sensores: DHT22, LDR, PIR, BME280
+- Protocolos: Serial/USB + MQTT
+- Frequência: 1Hz
+- Total de leituras: 11
+- Qualidade dos dados: 100% excelente
+- Movimentos detectados: 4
+- Temperatura média: 25.6°C
+- Umidade média: 60.0%
+- Luminosidade média: 453 lux
+- Pressão média: 1013.28 hPa

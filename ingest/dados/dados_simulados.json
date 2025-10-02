@@ -1,0 +1,222 @@
+[
+  {
+    "device": "ESP32-Simulator",
+    "timestamp": 1759411529625,
+    "sensors": {
+      "DHT22": {
+        "temperature": 28.2,
+        "humidity": 55.1
+      },
+      "LDR": {
+        "light": 653
+      },
+      "PIR": {
+        "motion": 0
+      },
+      "BME280": {
+        "pressure": 1013.32
+      }
+    },
+    "quality": "excelente",
+    "read_count": 0,
+    "processed_at": "2025-10-02T14:25:29.625095"
+  },
+  {
+    "device": "ESP32-Simulator",
+    "timestamp": 1759411530629,
+    "sensors": {
+      "DHT22": {
+        "temperature": 25.0,
+        "humidity": 57.9
+      },
+      "LDR": {
+        "light": 635
+      },
+      "PIR": {
+        "motion": 0
+      },
+      "BME280": {
+        "pressure": 1015.26
+      }
+    },
+    "quality": "excelente",
+    "read_count": 1,
+    "processed_at": "2025-10-02T14:25:30.629433"
+  },
+  {
+    "device": "ESP32-Simulator",
+    "timestamp": 1759411531633,
+    "sensors": {
+      "DHT22": {
+        "temperature": 25.3,
+        "humidity": 59.8
+      },
+      "LDR": {
+        "light": 624
+      },
+      "PIR": {
+        "motion": 1
+      },
+      "BME280": {
+        "pressure": 1015.06
+      }
+    },
+    "quality": "excelente",
+    "read_count": 2,
+    "processed_at": "2025-10-02T14:25:31.633950"
+  },
+  {
+    "device": "ESP32-Simulator",
+    "timestamp": 1759411532637,
+    "sensors": {
+      "DHT22": {
+        "temperature": 24.7,
+        "humidity": 56.5
+      },
+      "LDR": {
+        "light": 688
+      },
+      "PIR": {
+        "motion": 1
+      },
+      "BME280": {
+        "pressure": 1013.53
+      }
+    },
+    "quality": "excelente",
+    "read_count": 3,
+    "processed_at": "2025-10-02T14:25:32.637524"
+  },
+  {
+    "device": "ESP32-Simulator",
+    "timestamp": 1759411533638,
+    "sensors": {
+      "DHT22": {
+        "temperature": 27.1,
+        "humidity": 55.5
+      },
+      "LDR": {
+        "light": 689
+      },
+      "PIR": {
+        "motion": 1
+      },
+      "BME280": {
+        "pressure": 1018.45
+      }
+    },
+    "quality": "excelente",
+    "read_count": 4,
+    "processed_at": "2025-10-02T14:25:33.638516"
+  },
+  {
+    "device": "ESP32-Simulator",
+    "timestamp": 1759411534639,
+    "sensors": {
+      "DHT22": {
+        "temperature": 23.3,
+        "humidity": 63.0
+      },
+      "LDR": {
+        "light": 694
+      },
+      "PIR": {
+        "motion": 1
+      },
+      "BME280": {
+        "pressure": 1014.07
+      }
+    },
+    "quality": "excelente",
+    "read_count": 5,
+    "processed_at": "2025-10-02T14:25:34.639071"
+  },
+  {
+    "device": "ESP32-Simulator",
+    "timestamp": 1759411535639,
+    "sensors": {
+      "DHT22": {
+        "temperature": 26.8,
+        "humidity": 57.8
+      },
+      "LDR": {
+        "light": 695
+      },
+      "PIR": {
+        "motion": 1
+      },
+      "BME280": {
+        "pressure": 1012.42
+      }
+    },
+    "quality": "excelente",
+    "read_count": 6,
+    "processed_at": "2025-10-02T14:25:35.640011"
+  },
+  {
+    "device": "ESP32-Simulator",
+    "timestamp": 1759411536640,
+    "sensors": {
+      "DHT22": {
+        "temperature": 24.4,
+        "humidity": 60.1
+      },
+      "LDR": {
+        "light": 664
+      },
+      "PIR": {
+        "motion": 1
+      },
+      "BME280": {
+        "pressure": 1011.63
+      }
+    },
+    "quality": "excelente",
+    "read_count": 7,
+    "processed_at": "2025-10-02T14:25:36.640987"
+  },
+  {
+    "device": "ESP32-Simulator",
+    "timestamp": 1759411537641,
+    "sensors": {
+      "DHT22": {
+        "temperature": 22.1,
+        "humidity": 66.6
+      },
+      "LDR": {
+        "light": 719
+      },
+      "PIR": {
+        "motion": 1
+      },
+      "BME280": {
+        "pressure": 1015.89
+      }
+    },
+    "quality": "excelente",
+    "read_count": 8,
+    "processed_at": "2025-10-02T14:25:37.642046"
+  },
+  {
+    "device": "ESP32-Simulator",
+    "timestamp": 1759411538642,
+    "sensors": {
+      "DHT22": {
+        "temperature": 27.5,
+        "humidity": 55.2
+      },
+      "LDR": {
+        "light": 672
+      },
+      "PIR": {
+        "motion": 1
+      },
+      "BME280": {
+        "pressure": 1015.62
+      }
+    },
+    "quality": "excelente",
+    "read_count": 9,
+    "processed_at": "2025-10-02T14:25:38.642868"
+  }
+]

@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "author": "Enterprise Challenge Sprint 3 - Reply",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32",
+      "id": "esp32",
+      "top": 0,
+      "left": 0,
+      "attrs": {
+        "frequency": "240",
+        "flash": "4M",
+        "psram": "0"
+      }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht22",
+      "top": 100,
+      "left": 200,
+      "attrs": {
+        "temperature": "23.5",
+        "humidity": "65.2"
+      }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr",
+      "top": 200,
+      "left": 200,
+      "attrs": {
+        "resistance": "10000"
+      }
+    },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir",
+      "top": 300,
+      "left": 200,
+      "attrs": {
+        "sensitivity": "0.5",
+        "delay": "1000"
+      }
+    },
+    {
+      "type": "wokwi-bme280",
+      "id": "bme280",
+      "top": 400,
+      "left": 200,
+      "attrs": {
+        "temperature": "23.5",
+        "humidity": "65.2",
+        "pressure": "1013.25"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 100,
+      "left": 400,
+      "attrs": {
+        "color": "red"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": 150,
+      "left": 400,
+      "attrs": {
+        "color": "green"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led3",
+      "top": 200,
+      "left": 400,
+      "attrs": {
+        "color": "blue"
+      }
+    },
+    {
+      "type": "wokwi-serial-monitor",
+      "id": "serial-monitor",
+      "top": 500,
+      "left": 0,
+      "attrs": {
+        "port": "0"
+      }
+    }
+  ],
+  "connections": [
+    ["esp32:GPIO4", "dht22:VCC", "red"],
+    ["esp32:GPIO4", "dht22:DATA", "yellow"],
+    ["esp32:GND", "dht22:GND", "black"],
+    ["esp32:GPIO34", "ldr:1", "orange"],
+    ["esp32:3V3", "ldr:2", "red"],
+    ["esp32:GPIO2", "pir:OUT", "purple"],
+    ["esp32:3V3", "pir:VCC", "red"],
+    ["esp32:GND", "pir:GND", "black"],
+    ["esp32:GPIO21", "bme280:SDA", "blue"],
+    ["esp32:GPIO22", "bme280:SCL", "green"],
+    ["esp32:3V3", "bme280:VCC", "red"],
+    ["esp32:GND", "bme280:GND", "black"],
+    ["esp32:GPIO2", "led1:A", "red"],
+    ["esp32:GPIO4", "led2:A", "green"],
+    ["esp32:GPIO5", "led3:A", "blue"],
+    ["esp32:TX0", "serial-monitor:TX", "green"],
+    ["esp32:RX0", "serial-monitor:RX", "yellow"]
+  ],
+  "dependencies": {
+    "Adafruit BME280 Library": "https://github.com/adafruit/Adafruit_BME280_Library",
+    "Adafruit Unified Sensor": "https://github.com/adafruit/Adafruit_Sensor",
+    "DHT sensor library": "https://github.com/adafruit/DHT-sensor-library",
+    "ArduinoJson": "https://github.com/bblanchon/ArduinoJson",
+    "PubSubClient": "https://github.com/knolleary/pubsubclient"
+  }
+}

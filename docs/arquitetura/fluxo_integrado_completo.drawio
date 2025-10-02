@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-01-11T14:30:00.000Z" agent="5.0" etag="abc123" version="22.1.16" type="device">
+  <diagram name="Fluxo Integrado Completo" id="fluxo-integrado-completo">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Título -->
+        <mxCell id="titulo" value="Sistema IoT Monitoring - Fluxo Integrado Completo" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#2F5597;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Subtítulo -->
+        <mxCell id="subtitulo" value="Enterprise Challenge Sprint 3 - Reply" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="450" y="50" width="300" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- CAMADA 1: COLETA DE DADOS -->
+        <mxCell id="camada-coleta" value="CAMADA 1: COLETA DE DADOS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#01579B;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="1050" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- ESP32 Hardware -->
+        <mxCell id="esp32-hardware" value="ESP32 Hardware&#xa;Sensores: DHT22, LDR, PIR, BME280&#xa;Protocolo: Serial/USB&#xa;Frequência: 1Hz" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="130" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Wokwi Simulação -->
+        <mxCell id="wokwi-simulacao" value="Wokwi Simulação&#xa;Simulação Online&#xa;Protocolo: MQTT&#xa;Frequência: 1Hz" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="220" y="130" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Coletor Serial -->
+        <mxCell id="coletor-serial" value="Coletor Serial&#xa;Python Script&#xa;Parsing JSON/CSV&#xa;Validação Dados" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="130" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Simulador Dados -->
+        <mxCell id="simulador-dados" value="Simulador Dados&#xa;Python Script&#xa;Dados Sintéticos&#xa;Configurável" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="130" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- MQTT Broker -->
+        <mxCell id="mqtt-broker" value="MQTT Broker&#xa;HiveMQ Cloud&#xa;Topic: industrial/sensors&#xa;QoS: 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#0277BD;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="640" y="130" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Formatos de Dados -->
+        <mxCell id="formatos-dados" value="Formatos de Dados&#xa;JSON: {&quot;sensor&quot;: &quot;DHT22&quot;, &quot;valor&quot;: 25.5}&#xa;CSV: timestamp,sensor,valor&#xa;Frequência: 1Hz" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="130" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- CAMADA 2: PROCESSAMENTO E PERSISTÊNCIA -->
+        <mxCell id="camada-processamento" value="CAMADA 2: PROCESSAMENTO E PERSISTÊNCIA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="1050" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Pipeline ETL -->
+        <mxCell id="pipeline-etl" value="Pipeline ETL&#xa;Extract: MQTT/Serial&#xa;Transform: Validação&#xa;Load: MySQL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="280" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Validação Dados -->
+        <mxCell id="validacao-dados" value="Validação Dados&#xa;Range Check&#xa;Type Check&#xa;Quality Score" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="220" y="280" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Cache Inteligente -->
+        <mxCell id="cache-inteligente" value="Cache Inteligente&#xa;Device Info&#xa;Sensor Config&#xa;Batch Processing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#01579B;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="280" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- MySQL Database -->
+        <mxCell id="mysql-database" value="MySQL Database&#xa;11 Tabelas Normalizadas&#xa;Integridade Referencial&#xa;Índices Otimizados" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="280" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Tabelas Principais -->
+        <mxCell id="tabelas-principais" value="Tabelas Principais&#xa;leituras_sensores&#xa;dispositivos, sensores&#xa;alertas, tipos_sensor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="640" y="280" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Persistência Robusta -->
+        <mxCell id="persistencia-robusta" value="Persistência Robusta&#xa;Connection Pooling&#xa;CRUD Operations&#xa;Audit Trail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="280" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- CAMADA 3: MACHINE LEARNING -->
+        <mxCell id="camada-ml" value="CAMADA 3: MACHINE LEARNING" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="400" width="1050" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Feature Engineering -->
+        <mxCell id="feature-engineering" value="Feature Engineering&#xa;Valor Anterior&#xa;Média Móvel&#xa;Tendência" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#0277BD;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="430" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Modelo Anomalia -->
+        <mxCell id="modelo-anomalia" value="Modelo Anomalia&#xa;Random Forest&#xa;Isolation Forest&#xa;Accuracy: 85%+" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="220" y="430" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Modelo Predição -->
+        <mxCell id="modelo-predicao" value="Modelo Predição&#xa;Random Forest Regressor&#xa;MAE: 0.5°C&#xa;R²: 0.92" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="430" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Treinamento -->
+        <mxCell id="treinamento" value="Treinamento&#xa;Batch Processing&#xa;Cross Validation&#xa;Hyperparameter Tuning" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="430" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Inferência -->
+        <mxCell id="inferencia" value="Inferência&#xa;Real-time Prediction&#xa;Anomaly Detection&#xa;Model Monitoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#01579B;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="640" y="430" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Métricas -->
+        <mxCell id="metricas" value="Métricas&#xa;Accuracy, MAE, R²&#xa;Confusion Matrix&#xa;ROC Curve" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="430" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- CAMADA 4: VISUALIZAÇÃO E ALERTAS -->
+        <mxCell id="camada-visualizacao" value="CAMADA 4: VISUALIZAÇÃO E ALERTAS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="550" width="1050" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Dashboard Streamlit -->
+        <mxCell id="dashboard-streamlit" value="Dashboard Streamlit&#xa;Interface Web&#xa;KPIs em Tempo Real&#xa;Gráficos Interativos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#0277BD;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="580" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Sistema Alertas -->
+        <mxCell id="sistema-alertas" value="Sistema Alertas&#xa;Thresholds Configuráveis&#xa;Banner Visual&#xa;Email Notifications" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="220" y="580" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- KPIs Negócio -->
+        <mxCell id="kpis-negocio" value="KPIs Negócio&#xa;Total Leituras&#xa;Dispositivos Ativos&#xa;Taxa Anomalias" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="580" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Relatórios -->
+        <mxCell id="relatorios" value="Relatórios&#xa;Automáticos&#xa;PDF/HTML&#xa;Agendados" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="580" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Visualizações -->
+        <mxCell id="visualizacoes" value="Visualizações&#xa;Gráficos Tempo Real&#xa;Distribuição Dados&#xa;Métricas Detalhadas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="640" y="580" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Monitoramento -->
+        <mxCell id="monitoramento" value="Monitoramento&#xa;Drift Detection&#xa;Performance Metrics&#xa;Health Checks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#01579B;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="580" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- FLUXOS DE DADOS -->
+        <!-- Fluxo 1: Coleta → Processamento -->
+        <mxCell id="fluxo1" value="Dados Brutos&#xa;JSON/CSV&#xa;1Hz" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1976D2;strokeWidth=2;fillColor=#E3F2FD;" edge="1" parent="1" source="formatos-dados" target="pipeline-etl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Fluxo 2: Processamento → ML -->
+        <mxCell id="fluxo2" value="Dados Validados&#xa;Features&#xa;Batch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#388E3C;strokeWidth=2;fillColor=#E8F5E8;" edge="1" parent="1" source="mysql-database" target="feature-engineering">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Fluxo 3: ML → Visualização -->
+        <mxCell id="fluxo3" value="Predições&#xa;Anomalias&#xa;Real-time" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#F57C00;strokeWidth=2;fillColor=#FFF3E0;" edge="1" parent="1" source="inferencia" target="dashboard-streamlit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Fluxo 4: Alertas -->
+        <mxCell id="fluxo4" value="Alertas&#xa;Thresholds&#xa;Notificações" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D32F2F;strokeWidth=2;fillColor=#FFEBEE;" edge="1" parent="1" source="sistema-alertas" target="relatorios">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- LEGENDA -->
+        <mxCell id="legenda" value="LEGENDA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="700" width="200" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legenda-fluxos" value="Fluxos de Dados:&#xa;🔵 Dados Brutos (1Hz)&#xa;🟢 Dados Validados (Batch)&#xa;🟠 Predições (Real-time)&#xa;🔴 Alertas (Event-driven)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="720" width="180" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- INFORMAÇÕES TÉCNICAS -->
+        <mxCell id="info-tecnicas" value="INFORMAÇÕES TÉCNICAS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="700" width="300" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="info-detalhes" value="Tecnologias:&#xa;• ESP32, Arduino IDE, Wokwi&#xa;• Python, MySQL, MQTT&#xa;• Streamlit, Plotly, Scikit-learn&#xa;• Docker, GitHub Actions" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="310" y="720" width="280" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- MÉTRICAS DE PERFORMANCE -->
+        <mxCell id="metricas-performance" value="MÉTRICAS DE PERFORMANCE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="650" y="700" width="300" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="metricas-detalhes" value="Performance:&#xa;• Coleta: 1000+ leituras/hora&#xa;• ML: 85%+ accuracy&#xa;• Dashboard: <2s carregamento&#xa;• Alertas: <5s detecção" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="660" y="720" width="280" height="70" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

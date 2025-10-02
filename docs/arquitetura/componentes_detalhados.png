@@ -1,0 +1,35 @@
+# Diagrama de Componentes Detalhados
+## Sistema IoT Monitoring - Enterprise Challenge Sprint 3 - Reply
+
+Este arquivo contém o diagrama de componentes detalhados em formato PNG.
+
+Para visualizar o diagrama:
+1. Abra o arquivo `componentes_detalhados.drawio` no Draw.io
+2. Exporte como PNG
+3. Salve como `componentes_detalhados.png`
+
+O diagrama mostra:
+- **Componentes Técnicos**: Detalhamento de cada componente
+- **Protocolos**: Serial, MQTT, MySQL, REST, WebSocket
+- **APIs**: Endpoints e formatos de dados
+- **Tecnologias**: Python, Streamlit, Scikit-learn, MySQL
+- **Integrações**: Como os componentes se comunicam
+
+## Como Gerar o PNG
+
+1. Acesse [app.diagrams.net](https://app.diagrams.net)
+2. Abra o arquivo `componentes_detalhados.drawio`
+3. Vá em File → Export as → PNG
+4. Configure:
+   - Resolution: 300 DPI
+   - Border: 10px
+   - Background: White
+5. Salve como `componentes_detalhados.png`
+
+## Uso
+
+Este diagrama pode ser usado em:
+- **Documentação Técnica**: Detalhamento de componentes
+- **Apresentações**: Slides técnicos
+- **Desenvolvimento**: Referência para implementação
+- **Arquitetura**: Documentação arquitetural

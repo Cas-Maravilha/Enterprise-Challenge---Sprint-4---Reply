@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MySQL Workbench Model -->
+<model id="iot_monitoring_workbench" name="IoT Monitoring System" version="1.0">
+  <diagram id="iot_monitoring_erd" name="IoT Monitoring ERD" version="1.0">
+    
+    <!-- Table Positions and Sizes -->
+    <table id="dispositivos" name="dispositivos" x="100" y="100" width="200" height="150">
+      <column id="id_dispositivo" name="id_dispositivo" type="INT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="nome" name="nome" type="VARCHAR(100)" notNull="true"/>
+      <column id="mac_address" name="mac_address" type="VARCHAR(17)" notNull="true" unique="true"/>
+      <column id="ip_address" name="ip_address" type="VARCHAR(15)"/>
+      <column id="localizacao" name="localizacao" type="VARCHAR(200)"/>
+      <column id="status" name="status" type="ENUM('ativo','inativo','manutencao')" notNull="true" default="'ativo'"/>
+      <column id="data_cadastro" name="data_cadastro" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+      <column id="ultima_conexao" name="ultima_conexao" type="TIMESTAMP"/>
+      <column id="versao_firmware" name="versao_firmware" type="VARCHAR(20)"/>
+      <column id="observacoes" name="observacoes" type="TEXT"/>
+    </table>
+    
+    <table id="tipos_sensor" name="tipos_sensor" x="400" y="100" width="200" height="150">
+      <column id="id_tipo_sensor" name="id_tipo_sensor" type="INT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="nome" name="nome" type="VARCHAR(50)" notNull="true" unique="true"/>
+      <column id="descricao" name="descricao" type="TEXT"/>
+      <column id="unidade_medida" name="unidade_medida" type="VARCHAR(20)"/>
+      <column id="faixa_min" name="faixa_min" type="DECIMAL(10,3)"/>
+      <column id="faixa_max" name="faixa_max" type="DECIMAL(10,3)"/>
+      <column id="precisao" name="precisao" type="DECIMAL(8,3)"/>
+      <column id="ativo" name="ativo" type="TINYINT(1)" notNull="true" default="1"/>
+      <column id="data_cadastro" name="data_cadastro" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+    </table>
+    
+    <table id="sensores" name="sensores" x="250" y="300" width="200" height="180">
+      <column id="id_sensor" name="id_sensor" type="INT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="id_dispositivo" name="id_dispositivo" type="INT" notNull="true"/>
+      <column id="id_tipo_sensor" name="id_tipo_sensor" type="INT" notNull="true"/>
+      <column id="nome" name="nome" type="VARCHAR(100)" notNull="true"/>
+      <column id="pino_analogico" name="pino_analogico" type="INT"/>
+      <column id="pino_digital" name="pino_digital" type="INT"/>
+      <column id="calibracao_min" name="calibracao_min" type="DECIMAL(10,3)"/>
+      <column id="calibracao_max" name="calibracao_max" type="DECIMAL(10,3)"/>
+      <column id="status" name="status" type="ENUM('ativo','inativo','falha')" notNull="true" default="'ativo'"/>
+      <column id="data_instalacao" name="data_instalacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+      <column id="ultima_calibracao" name="ultima_calibracao" type="TIMESTAMP"/>
+      <column id="observacoes" name="observacoes" type="TEXT"/>
+    </table>
+    
+    <table id="leituras_sensores" name="leituras_sensores" x="250" y="550" width="200" height="180">
+      <column id="id_leitura" name="id_leitura" type="BIGINT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="id_sensor" name="id_sensor" type="INT" notNull="true"/>
+      <column id="timestamp_unix" name="timestamp_unix" type="DECIMAL(15,3)" notNull="true"/>
+      <column id="timestamp_datetime" name="timestamp_datetime" type="TIMESTAMP" notNull="true"/>
+      <column id="valor_numerico" name="valor_numerico" type="DECIMAL(12,6)"/>
+      <column id="valor_booleano" name="valor_booleano" type="TINYINT(1)"/>
+      <column id="valor_string" name="valor_string" type="VARCHAR(255)"/>
+      <column id="qualidade_dados" name="qualidade_dados" type="ENUM('excelente','bom','regular','ruim')" notNull="true" default="'bom'"/>
+      <column id="anomalia_detectada" name="anomalia_detectada" type="TINYINT(1)" notNull="true" default="0"/>
+      <column id="data_coleta" name="data_coleta" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+    </table>
+    
+    <table id="modos_operacao" name="modos_operacao" x="700" y="100" width="200" height="120">
+      <column id="id_modo" name="id_modo" type="INT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="nome" name="nome" type="VARCHAR(50)" notNull="true" unique="true"/>
+      <column id="descricao" name="descricao" type="TEXT"/>
+      <column id="cor_indicador" name="cor_indicador" type="VARCHAR(7)"/>
+      <column id="ativo" name="ativo" type="TINYINT(1)" notNull="true" default="1"/>
+      <column id="data_cadastro" name="data_cadastro" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+    </table>
+    
+    <table id="alertas" name="alertas" x="700" y="300" width="200" height="200">
+      <column id="id_alerta" name="id_alerta" type="BIGINT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="id_dispositivo" name="id_dispositivo" type="INT" notNull="true"/>
+      <column id="id_sensor" name="id_sensor" type="INT"/>
+      <column id="id_modo" name="id_modo" type="INT" notNull="true"/>
+      <column id="tipo_alerta" name="tipo_alerta" type="ENUM('temperatura','umidade','pressao','vibracao','nivel','conexao','geral')" notNull="true"/>
+      <column id="severidade" name="severidade" type="ENUM('baixa','media','alta','critica')" notNull="true"/>
+      <column id="titulo" name="titulo" type="VARCHAR(200)" notNull="true"/>
+      <column id="descricao" name="descricao" type="TEXT"/>
+      <column id="valor_atual" name="valor_atual" type="DECIMAL(12,6)"/>
+      <column id="valor_limite" name="valor_limite" type="DECIMAL(12,6)"/>
+      <column id="timestamp_alerta" name="timestamp_alerta" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+      <column id="status" name="status" type="ENUM('ativo','resolvido','ignorado')" notNull="true" default="'ativo'"/>
+      <column id="data_resolucao" name="data_resolucao" type="TIMESTAMP"/>
+      <column id="usuario_resolucao" name="usuario_resolucao" type="VARCHAR(100)"/>
+      <column id="observacoes_resolucao" name="observacoes_resolucao" type="TEXT"/>
+    </table>
+    
+    <table id="configuracoes_limites" name="configuracoes_limites" x="100" y="300" width="200" height="150">
+      <column id="id_configuracao" name="id_configuracao" type="INT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="id_sensor" name="id_sensor" type="INT" notNull="true"/>
+      <column id="tipo_limite" name="tipo_limite" type="ENUM('minimo','maximo','variacao')" notNull="true"/>
+      <column id="valor_limite" name="valor_limite" type="DECIMAL(12,6)" notNull="true"/>
+      <column id="severidade" name="severidade" type="ENUM('baixa','media','alta','critica')" notNull="true"/>
+      <column id="ativo" name="ativo" type="TINYINT(1)" notNull="true" default="1"/>
+      <column id="data_criacao" name="data_criacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+      <column id="data_atualizacao" name="data_atualizacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"/>
+      <column id="usuario_criacao" name="usuario_criacao" type="VARCHAR(100)"/>
+      <column id="observacoes" name="observacoes" type="TEXT"/>
+    </table>
+    
+    <table id="usuarios" name="usuarios" x="100" y="550" width="200" height="150">
+      <column id="id_usuario" name="id_usuario" type="INT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="nome" name="nome" type="VARCHAR(100)" notNull="true"/>
+      <column id="email" name="email" type="VARCHAR(255)" notNull="true" unique="true"/>
+      <column id="senha_hash" name="senha_hash" type="VARCHAR(255)" notNull="true"/>
+      <column id="perfil" name="perfil" type="ENUM('admin','operador','visualizador')" notNull="true"/>
+      <column id="ativo" name="ativo" type="TINYINT(1)" notNull="true" default="1"/>
+      <column id="data_cadastro" name="data_cadastro" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+      <column id="ultimo_login" name="ultimo_login" type="TIMESTAMP"/>
+      <column id="token_reset_senha" name="token_reset_senha" type="VARCHAR(255)"/>
+      <column id="data_expiracao_token" name="data_expiracao_token" type="TIMESTAMP"/>
+    </table>
+    
+    <table id="logs_sistema" name="logs_sistema" x="100" y="750" width="200" height="150">
+      <column id="id_log" name="id_log" type="BIGINT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="id_usuario" name="id_usuario" type="INT"/>
+      <column id="acao" name="acao" type="VARCHAR(100)" notNull="true"/>
+      <column id="tabela_afetada" name="tabela_afetada" type="VARCHAR(50)"/>
+      <column id="id_registro_afetado" name="id_registro_afetado" type="BIGINT"/>
+      <column id="dados_anteriores" name="dados_anteriores" type="JSON"/>
+      <column id="dados_novos" name="dados_novos" type="JSON"/>
+      <column id="ip_origem" name="ip_origem" type="VARCHAR(45)"/>
+      <column id="user_agent" name="user_agent" type="TEXT"/>
+      <column id="timestamp_log" name="timestamp_log" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+    </table>
+    
+    <table id="dashboards" name="dashboards" x="400" y="550" width="200" height="120">
+      <column id="id_dashboard" name="id_dashboard" type="INT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="id_usuario" name="id_usuario" type="INT" notNull="true"/>
+      <column id="nome" name="nome" type="VARCHAR(100)" notNull="true"/>
+      <column id="descricao" name="descricao" type="TEXT"/>
+      <column id="configuracoes" name="configuracoes" type="JSON"/>
+      <column id="publico" name="publico" type="TINYINT(1)" notNull="true" default="0"/>
+      <column id="ativo" name="ativo" type="TINYINT(1)" notNull="true" default="1"/>
+      <column id="data_criacao" name="data_criacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+      <column id="data_atualizacao" name="data_atualizacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"/>
+    </table>
+    
+    <table id="relatorios" name="relatorios" x="400" y="750" width="200" height="120">
+      <column id="id_relatorio" name="id_relatorio" type="INT" primaryKey="true" autoIncrement="true" notNull="true"/>
+      <column id="id_usuario" name="id_usuario" type="INT" notNull="true"/>
+      <column id="nome" name="nome" type="VARCHAR(100)" notNull="true"/>
+      <column id="tipo_relatorio" name="tipo_relatorio" type="ENUM('diario','semanal','mensal','personalizado')" notNull="true"/>
+      <column id="configuracoes" name="configuracoes" type="JSON"/>
+      <column id="frequencia" name="frequencia" type="VARCHAR(50)"/>
+      <column id="ativo" name="ativo" type="TINYINT(1)" notNull="true" default="1"/>
+      <column id="proxima_execucao" name="proxima_execucao" type="TIMESTAMP"/>
+      <column id="data_criacao" name="data_criacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP"/>
+    </table>
+    
+    <!-- Relationships with visual positioning -->
+    
+    <!-- Dispositivos -> Sensores (1:N) -->
+    <relationship id="fk_sensores_dispositivos" name="fk_sensores_dispositivos" type="1:N">
+      <parent table="dispositivos" column="id_dispositivo"/>
+      <child table="sensores" column="id_dispositivo"/>
+      <connection x1="200" y1="250" x2="250" y2="300"/>
+    </relationship>
+    
+    <!-- Tipos Sensor -> Sensores (1:N) -->
+    <relationship id="fk_sensores_tipos_sensor" name="fk_sensores_tipos_sensor" type="1:N">
+      <parent table="tipos_sensor" column="id_tipo_sensor"/>
+      <child table="sensores" column="id_tipo_sensor"/>
+      <connection x1="400" y1="250" x2="350" y2="300"/>
+    </relationship>
+    
+    <!-- Sensores -> Leituras Sensores (1:N) -->
+    <relationship id="fk_leituras_sensores" name="fk_leituras_sensores" type="1:N">
+      <parent table="sensores" column="id_sensor"/>
+      <child table="leituras_sensores" column="id_sensor"/>
+      <connection x1="250" y1="480" x2="250" y2="550"/>
+    </relationship>
+    
+    <!-- Dispositivos -> Alertas (1:N) -->
+    <relationship id="fk_alertas_dispositivos" name="fk_alertas_dispositivos" type="1:N">
+      <parent table="dispositivos" column="id_dispositivo"/>
+      <child table="alertas" column="id_dispositivo"/>
+      <connection x1="200" y1="175" x2="700" y2="300"/>
+    </relationship>
+    
+    <!-- Sensores -> Alertas (1:N) -->
+    <relationship id="fk_alertas_sensores" name="fk_alertas_sensores" type="1:N">
+      <parent table="sensores" column="id_sensor"/>
+      <child table="alertas" column="id_sensor"/>
+      <connection x1="350" y1="400" x2="700" y2="400"/>
+    </relationship>
+    
+    <!-- Modos Operacao -> Alertas (1:N) -->
+    <relationship id="fk_alertas_modos_operacao" name="fk_alertas_modos_operacao" type="1:N">
+      <parent table="modos_operacao" column="id_modo"/>
+      <child table="alertas" column="id_modo"/>
+      <connection x1="700" y1="220" x2="700" y2="300"/>
+    </relationship>
+    
+    <!-- Sensores -> Configuracoes Limites (1:N) -->
+    <relationship id="fk_configuracoes_limites_sensores" name="fk_configuracoes_limites_sensores" type="1:N">
+      <parent table="sensores" column="id_sensor"/>
+      <child table="configuracoes_limites" column="id_sensor"/>
+      <connection x1="250" y1="400" x2="200" y2="400"/>
+    </relationship>
+    
+    <!-- Usuarios -> Logs Sistema (1:N) -->
+    <relationship id="fk_logs_sistema_usuarios" name="fk_logs_sistema_usuarios" type="1:N">
+      <parent table="usuarios" column="id_usuario"/>
+      <child table="logs_sistema" column="id_usuario"/>
+      <connection x1="200" y1="700" x2="200" y2="750"/>
+    </relationship>
+    
+    <!-- Usuarios -> Dashboards (1:N) -->
+    <relationship id="fk_dashboards_usuarios" name="fk_dashboards_usuarios" type="1:N">
+      <parent table="usuarios" column="id_usuario"/>
+      <child table="dashboards" column="id_usuario"/>
+      <connection x1="200" y1="625" x2="400" y2="625"/>
+    </relationship>
+    
+    <!-- Usuarios -> Relatorios (1:N) -->
+    <relationship id="fk_relatorios_usuarios" name="fk_relatorios_usuarios" type="1:N">
+      <parent table="usuarios" column="id_usuario"/>
+      <child table="relatorios" column="id_usuario"/>
+      <connection x1="200" y1="700" x2="400" y2="750"/>
+    </relationship>
+    
+  </diagram>
+</model>

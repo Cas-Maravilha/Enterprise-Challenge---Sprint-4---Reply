@@ -1,0 +1,35 @@
+# Diagrama de Fluxo de Dados
+## Sistema IoT Monitoring - Enterprise Challenge Sprint 3 - Reply
+
+Este arquivo contém o diagrama de fluxo de dados em formato PNG.
+
+Para visualizar o diagrama:
+1. Abra o arquivo `fluxo_dados.drawio` no Draw.io
+2. Exporte como PNG
+3. Salve como `fluxo_dados.png`
+
+O diagrama mostra:
+- **Fluxo de Dados**: Como os dados fluem pelo sistema
+- **Formatos**: JSON, CSV, SQL, HTML
+- **Frequências**: 1Hz, Real-time, Batch
+- **Transformações**: Validação, Feature Engineering, ML
+- **Saídas**: Dashboard, Alertas, Relatórios
+
+## Como Gerar o PNG
+
+1. Acesse [app.diagrams.net](https://app.diagrams.net)
+2. Abra o arquivo `fluxo_dados.drawio`
+3. Vá em File → Export as → PNG
+4. Configure:
+   - Resolution: 300 DPI
+   - Border: 10px
+   - Background: White
+5. Salve como `fluxo_dados.png`
+
+## Uso
+
+Este diagrama pode ser usado em:
+- **Análise de Dados**: Entendimento do fluxo
+- **Otimização**: Identificação de gargalos
+- **Documentação**: Explicação do sistema
+- **Treinamento**: Onboarding de novos desenvolvedores

@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "author": "Enterprise Challenge - Sprint 3",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic",
+      "top": 0,
+      "left": 250,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-analog-joystick",
+      "id": "joystick",
+      "top": 150,
+      "left": 250,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot1",
+      "top": 150,
+      "left": 0,
+      "attrs": {
+        "value": "0.5"
+      }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot2",
+      "top": 150,
+      "left": 100,
+      "attrs": {
+        "value": "0.7"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 250,
+      "left": 0,
+      "attrs": {
+        "color": "green"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 250,
+      "left": 50,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "switch1",
+      "top": 300,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "switch2",
+      "top": 300,
+      "left": 100,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    [ "esp:TX0", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX0", "$serialMonitor:TX", "", [] ],
+    [ "esp:GND.1", "ultrasonic:GND", "black", [] ],
+    [ "esp:5V", "ultrasonic:VCC", "red", [] ],
+    [ "esp:D5", "ultrasonic:TRIG", "yellow", [] ],
+    [ "esp:D18", "ultrasonic:ECHO", "orange", [] ],
+    [ "esp:GND.1", "joystick:GND", "black", [] ],
+    [ "esp:3V3", "joystick:VCC", "red", [] ],
+    [ "esp:D34", "joystick:VERT", "green", [] ],
+    [ "esp:D35", "joystick:HORZ", "blue", [] ],
+    [ "esp:D32", "joystick:SEL", "purple", [] ],
+    [ "esp:GND.1", "pot1:GND", "black", [] ],
+    [ "esp:3V3", "pot1:VCC", "red", [] ],
+    [ "esp:D33", "pot1:SIG", "green", [] ],
+    [ "esp:GND.1", "pot2:GND", "black", [] ],
+    [ "esp:3V3", "pot2:VCC", "red", [] ],
+    [ "esp:D25", "pot2:SIG", "blue", [] ],
+    [ "esp:D2", "r1:1", "green", [] ],
+    [ "r1:2", "led1:A", "green", [] ],
+    [ "led1:C", "esp:GND.1", "black", [] ],
+    [ "esp:D26", "switch1:2", "orange", [] ],
+    [ "switch1:1", "esp:GND.1", "black", [] ],
+    [ "esp:D27", "switch2:2", "purple", [] ],
+    [ "switch2:1", "esp:GND.1", "black", [] ]
+  ],
+  "dependencies": {}
+}

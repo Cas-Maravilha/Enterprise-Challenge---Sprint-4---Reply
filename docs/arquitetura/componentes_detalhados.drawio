@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-01-11T14:30:00.000Z" agent="5.0" etag="def456" version="22.1.16" type="device">
+  <diagram name="Componentes Detalhados" id="componentes-detalhados">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Título -->
+        <mxCell id="titulo" value="Sistema IoT Monitoring - Componentes Detalhados" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#2F5597;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Subtítulo -->
+        <mxCell id="subtitulo" value="Enterprise Challenge Sprint 3 - Reply" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="450" y="50" width="300" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- CAMADA DE COLETA -->
+        <mxCell id="camada-coleta" value="CAMADA DE COLETA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#01579B;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="500" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- ESP32 Hardware -->
+        <mxCell id="esp32-hardware" value="ESP32 Hardware&#xa;&#xa;Sensores:&#xa;• DHT22 (Temp/Umidade)&#xa;• LDR (Luminosidade)&#xa;• PIR (Movimento)&#xa;• BME280 (Pressão)&#xa;&#xa;Protocolos:&#xa;• Serial/USB (115200 baud)&#xa;• WiFi (MQTT)&#xa;• HTTP REST&#xa;&#xa;Frequência: 1Hz" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="130" width="150" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Wokwi Simulação -->
+        <mxCell id="wokwi-simulacao" value="Wokwi Simulação&#xa;&#xa;Componentes:&#xa;• ESP32 Simulado&#xa;• Sensores Virtuais&#xa;• LEDs Indicadores&#xa;• Display LCD&#xa;&#xa;Protocolos:&#xa;• MQTT (HiveMQ)&#xa;• Serial Monitor&#xa;&#xa;Configuração:&#xa;• JSON Schema&#xa;• Frequência: 1Hz" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="240" y="130" width="150" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Coletor Python -->
+        <mxCell id="coletor-python" value="Coletor Python&#xa;&#xa;Funcionalidades:&#xa;• Serial Communication&#xa;• MQTT Client&#xa;• Data Parsing&#xa;• Validation&#xa;&#xa;Formatos:&#xa;• JSON Parsing&#xa;• CSV Export&#xa;• Log Files&#xa;&#xa;Configuração:&#xa;• config.json&#xa;• Thresholds" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="130" width="130" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- CAMADA DE PROCESSAMENTO -->
+        <mxCell id="camada-processamento" value="CAMADA DE PROCESSAMENTO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="100" width="500" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- Pipeline ETL -->
+        <mxCell id="pipeline-etl" value="Pipeline ETL&#xa;&#xa;Extract:&#xa;• MQTT Messages&#xa;• Serial Data&#xa;• File Input&#xa;&#xa;Transform:&#xa;• Data Validation&#xa;• Type Conversion&#xa;• Quality Scoring&#xa;&#xa;Load:&#xa;• MySQL Insert&#xa;• Batch Processing&#xa;• Error Handling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="620" y="130" width="140" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- MySQL Database -->
+        <mxCell id="mysql-database" value="MySQL Database&#xa;&#xa;Tabelas (11):&#xa;• leituras_sensores&#xa;• dispositivos&#xa;• sensores&#xa;• tipos_sensor&#xa;• alertas&#xa;• modos_operacao&#xa;• configuracoes&#xa;• usuarios&#xa;• logs_sistema&#xa;• metricas_performance&#xa;• relatorios&#xa;&#xa;Recursos:&#xa;• Índices Otimizados&#xa;• Triggers&#xa;• Stored Procedures&#xa;• Partitioning" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#0277BD;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="130" width="140" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Cache System -->
+        <mxCell id="cache-system" value="Cache System&#xa;&#xa;Componentes:&#xa;• Device Info Cache&#xa;• Sensor Config Cache&#xa;• Threshold Cache&#xa;&#xa;Implementação:&#xa;• In-Memory Cache&#xa;• Redis (Opcional)&#xa;• TTL: 300s&#xa;&#xa;Benefícios:&#xa;• Performance&#xa;• Redução DB Load&#xa;• Disponibilidade" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="940" y="130" width="140" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- CAMADA DE ML -->
+        <mxCell id="camada-ml" value="CAMADA DE MACHINE LEARNING" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="350" width="500" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- Feature Engineering -->
+        <mxCell id="feature-engineering" value="Feature Engineering&#xa;&#xa;Features:&#xa;• valor_anterior&#xa;• media_movel_5&#xa;• media_movel_10&#xa;• std_movel_5&#xa;• tendencia&#xa;• hora_dia&#xa;• dia_semana&#xa;&#xa;Processamento:&#xa;• Normalização&#xa;• Scaling&#xa;• Encoding&#xa;&#xa;Output:&#xa;• Feature Matrix&#xa;• Target Vector" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="380" width="140" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Modelos ML -->
+        <mxCell id="modelos-ml" value="Modelos ML&#xa;&#xa;Anomalia Detection:&#xa;• Random Forest Classifier&#xa;• Isolation Forest&#xa;• Accuracy: 85%+&#xa;&#xa;Temperature Prediction:&#xa;• Random Forest Regressor&#xa;• MAE: 0.5°C&#xa;• R²: 0.92&#xa;&#xa;Recursos:&#xa;• Cross Validation&#xa;• Hyperparameter Tuning&#xa;• Model Persistence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="230" y="380" width="140" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Inferência -->
+        <mxCell id="inferencia" value="Inferência&#xa;&#xa;Real-time:&#xa;• Prediction Pipeline&#xa;• Anomaly Detection&#xa;• Model Loading&#xa;&#xa;Batch:&#xa;• Scheduled Jobs&#xa;• Bulk Processing&#xa;• Model Retraining&#xa;&#xa;Monitoring:&#xa;• Drift Detection&#xa;• Performance Metrics&#xa;• Alert Generation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#01579B;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="390" y="380" width="140" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- CAMADA DE VISUALIZAÇÃO -->
+        <mxCell id="camada-visualizacao" value="CAMADA DE VISUALIZAÇÃO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="350" width="500" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- Dashboard Streamlit -->
+        <mxCell id="dashboard-streamlit" value="Dashboard Streamlit&#xa;&#xa;Interface:&#xa;• Web Interface&#xa;• Real-time Updates&#xa;• Interactive Charts&#xa;&#xa;Componentes:&#xa;• KPIs Cards&#xa;• Time Series Charts&#xa;• Distribution Plots&#xa;• Alert Panel&#xa;&#xa;Tecnologias:&#xa;• Streamlit&#xa;• Plotly&#xa;• Pandas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#0277BD;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="620" y="380" width="140" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Sistema Alertas -->
+        <mxCell id="sistema-alertas" value="Sistema Alertas&#xa;&#xa;Thresholds:&#xa;• Configuráveis&#xa;• Por Sensor&#xa;• Críticos/Normais&#xa;&#xa;Notificações:&#xa;• Banner Visual&#xa;• Email HTML&#xa;• Log Estruturado&#xa;&#xa;Severidade:&#xa;• Crítica&#xa;• Alta&#xa;• Média" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="380" width="140" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Relatórios -->
+        <mxCell id="relatorios" value="Relatórios&#xa;&#xa;Tipos:&#xa;• Automáticos&#xa;• Agendados&#xa;• On-demand&#xa;&#xa;Formatos:&#xa;• PDF&#xa;• HTML&#xa;• JSON&#xa;&#xa;Conteúdo:&#xa;• KPIs&#xa;• Gráficos&#xa;• Alertas&#xa;• Métricas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="940" y="380" width="140" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- FLUXOS DE COMUNICAÇÃO -->
+        <!-- Fluxo 1: Coleta → Processamento -->
+        <mxCell id="fluxo1" value="Dados Brutos&#xa;JSON/CSV&#xa;1Hz" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1976D2;strokeWidth=3;fillColor=#E3F2FD;" edge="1" parent="1" source="coletor-python" target="pipeline-etl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Fluxo 2: Processamento → ML -->
+        <mxCell id="fluxo2" value="Dados Validados&#xa;Features&#xa;Batch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#388E3C;strokeWidth=3;fillColor=#E8F5E8;" edge="1" parent="1" source="mysql-database" target="feature-engineering">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Fluxo 3: ML → Visualização -->
+        <mxCell id="fluxo3" value="Predições&#xa;Anomalias&#xa;Real-time" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#F57C00;strokeWidth=3;fillColor=#FFF3E0;" edge="1" parent="1" source="inferencia" target="dashboard-streamlit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Fluxo 4: Alertas -->
+        <mxCell id="fluxo4" value="Alertas&#xa;Thresholds&#xa;Notificações" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D32F2F;strokeWidth=3;fillColor=#FFEBEE;" edge="1" parent="1" source="sistema-alertas" target="relatorios">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- PROTOCOLOS E APIs -->
+        <mxCell id="protocolos" value="PROTOCOLOS E APIs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="600" width="1050" height="150" as="geometry" />
+        </mxCell>
+        
+        <!-- Serial Protocol -->
+        <mxCell id="serial-protocol" value="Serial Protocol&#xa;&#xa;Baudrate: 115200&#xa;Format: JSON&#xa;Example:&#xa;{&quot;sensor&quot;: &quot;DHT22&quot;,&#xa; &quot;valor&quot;: 25.5,&#xa; &quot;timestamp&quot;: &quot;2024-01-11T14:30:00Z&quot;}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="630" width="150" height="110" as="geometry" />
+        </mxCell>
+        
+        <!-- MQTT Protocol -->
+        <mxCell id="mqtt-protocol" value="MQTT Protocol&#xa;&#xa;Broker: HiveMQ Cloud&#xa;Topic: industrial/sensors&#xa;QoS: 1&#xa;Retain: true&#xa;&#xa;Message:&#xa;{&quot;device&quot;: &quot;ESP32-01&quot;,&#xa; &quot;sensor&quot;: &quot;DHT22&quot;,&#xa; &quot;data&quot;: {&quot;temp&quot;: 25.5, &quot;hum&quot;: 60}}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="240" y="630" width="150" height="110" as="geometry" />
+        </mxCell>
+        
+        <!-- MySQL API -->
+        <mxCell id="mysql-api" value="MySQL API&#xa;&#xa;Connection:&#xa;• Host: localhost&#xa;• Port: 3306&#xa;• Database: iot_monitoring_db&#xa;&#xa;Operations:&#xa;• INSERT (leituras)&#xa;• SELECT (queries)&#xa;• UPDATE (configs)&#xa;• DELETE (cleanup)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="630" width="150" height="110" as="geometry" />
+        </mxCell>
+        
+        <!-- Streamlit API -->
+        <mxCell id="streamlit-api" value="Streamlit API&#xa;&#xa;Interface:&#xa;• Web: http://localhost:8501&#xa;• Real-time Updates&#xa;• Interactive Widgets&#xa;&#xa;Endpoints:&#xa;• / (Dashboard)&#xa;• /api/kpis&#xa;• /api/alerts&#xa;• /api/data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#0277BD;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="630" width="150" height="110" as="geometry" />
+        </mxCell>
+        
+        <!-- REST API -->
+        <mxCell id="rest-api" value="REST API&#xa;&#xa;Base URL:&#xa;http://localhost:8000/api&#xa;&#xa;Endpoints:&#xa;• GET /sensors&#xa;• POST /data&#xa;• GET /alerts&#xa;• PUT /config&#xa;&#xa;Format: JSON&#xa;Auth: JWT Token" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="750" y="630" width="150" height="110" as="geometry" />
+        </mxCell>
+        
+        <!-- WebSocket -->
+        <mxCell id="websocket" value="WebSocket&#xa;&#xa;Connection:&#xa;ws://localhost:8501/ws&#xa;&#xa;Events:&#xa;• data_update&#xa;• alert_triggered&#xa;• kpi_changed&#xa;&#xa;Format: JSON&#xa;Real-time: Yes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="920" y="630" width="150" height="110" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

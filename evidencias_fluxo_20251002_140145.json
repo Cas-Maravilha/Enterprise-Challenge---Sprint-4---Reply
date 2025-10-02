@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-10-02T14:01:52.813269",
+  "sistema": "IoT Monitoring",
+  "versao": "1.0.0",
+  "evidencias": [
+    {
+      "timestamp": "2025-10-02T14:01:45.684572",
+      "etapa": "COLETA DE DADOS",
+      "descricao": "Verificação de arquivos de coleta",
+      "dados": {
+        "arquivos_esperados": 4,
+        "arquivos_encontrados": 4,
+        "arquivos": [
+          "coleta_ingestao_esp32.ino",
+          "wokwi_simulacao_esp32.json",
+          "coletor_dados_serial.py",
+          "simulador_dados_esp32.py"
+        ]
+      },
+      "status": "sucesso"
+    },
+    {
+      "timestamp": "2025-10-02T14:01:50.797355",
+      "etapa": "PERSISTÊNCIA",
+      "descricao": "Erro na verificação do banco",
+      "dados": {
+        "erro": "2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)"
+      },
+      "status": "sucesso"
+    },
+    {
+      "timestamp": "2025-10-02T14:01:51.801900",
+      "etapa": "MACHINE LEARNING",
+      "descricao": "Verificação de modelos e métricas",
+      "dados": {
+        "arquivos_ml": 2,
+        "metricas_disponiveis": false,
+        "arquivos": [
+          "ml_basico_integrado.py",
+          "dataset_ml_analisador.py"
+        ]
+      },
+      "status": "sucesso"
+    },
+    {
+      "timestamp": "2025-10-02T14:01:52.807369",
+      "etapa": "VISUALIZAÇÃO E ALERTAS",
+      "descricao": "Verificação de dashboard e alertas",
+      "dados": {
+        "arquivos_visualizacao": 2,
+        "arquivos": [
+          "dashboard_visualizacao_alertas.py",
+          "sistema_alertas_avancado.py"
+        ]
+      },
+      "status": "sucesso"
+    }
+  ],
+  "resumo": {
+    "total_etapas": 4,
+    "etapas_sucesso": 4,
+    "etapas_erro": 0
+  }
+}

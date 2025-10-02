@@ -1,0 +1,36 @@
+{
+  "mqtt": {
+    "broker": "broker.hivemq.com",
+    "port": 1883,
+    "topic": "industrial/sensors/data",
+    "client_id": "pipeline_integrado_esp32",
+    "username": null,
+    "password": null
+  },
+  "database": {
+    "host": "localhost",
+    "port": 3306,
+    "database": "iot_monitoring",
+    "username": "root",
+    "password": "password"
+  },
+  "ml": {
+    "modelo_path": "modelos/modelo_anomalia_iot_completo.pkl",
+    "scaler_path": "modelos/scaler_iot.pkl",
+    "threshold_anomalia": 0.5,
+    "retreinar_intervalo_horas": 24
+  },
+  "monitoramento": {
+    "drift_threshold": 0.05,
+    "kpi_update_intervalo_minutos": 5,
+    "dashboard_update_intervalo_segundos": 30
+  },
+  "alertas": {
+    "email_enabled": false,
+    "email_smtp": "smtp.gmail.com",
+    "email_port": 587,
+    "email_user": "",
+    "email_password": "",
+    "email_to": []
+  }
+}

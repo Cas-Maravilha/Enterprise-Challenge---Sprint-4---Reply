@@ -1,0 +1,35 @@
+{
+  "timestamp": "2024-10-02T15:00:00Z",
+  "sensors": {
+    "temperatura_media": 25.3,
+    "umidade_media": 58.7,
+    "luminosidade_media": 450.2,
+    "pressao_media": 1013.2,
+    "taxa_movimento": 12.5
+  },
+  "system": {
+    "uptime": 99.8,
+    "leituras_por_minuto": 40,
+    "taxa_anomalias": 2.1,
+    "latencia_media": 45,
+    "throughput": 2400
+  },
+  "quality": {
+    "excelente": 90.2,
+    "boa": 9.5,
+    "regular": 0.3,
+    "ruim": 0.0
+  },
+  "alerts": {
+    "ativos": 3,
+    "criticos": 1,
+    "resolvidos_24h": 15,
+    "tempo_medio_resolucao": 2.3
+  },
+  "performance": {
+    "cpu_usage": 15.2,
+    "memory_usage": 45.8,
+    "disk_usage": 23.1,
+    "network_latency": 12.5
+  }
+}

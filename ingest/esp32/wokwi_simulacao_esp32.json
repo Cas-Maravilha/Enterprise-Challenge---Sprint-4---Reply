@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "author": "Sistema IoT Monitoring",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32",
+      "id": "esp32",
+      "attrs": {
+        "frequency": "240",
+        "flash": "4M",
+        "psram": "0"
+      }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht22",
+      "attrs": {
+        "temperature": "25.5",
+        "humidity": "60.0"
+      }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr",
+      "attrs": {
+        "value": "450"
+      }
+    },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir",
+      "attrs": {
+        "value": "0"
+      }
+    },
+    {
+      "type": "wokwi-bme280",
+      "id": "bme280",
+      "attrs": {
+        "temperature": "25.5",
+        "humidity": "60.0",
+        "pressure": "1013.25"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "attrs": {
+        "color": "red"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "attrs": {
+        "color": "green"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led3",
+      "attrs": {
+        "color": "blue"
+      }
+    }
+  ],
+  "connections": [
+    ["esp32:GPIO4", "dht22:1", ""],
+    ["esp32:3V3", "dht22:VCC", "red"],
+    ["esp32:GND", "dht22:GND", "black"],
+    ["esp32:GPIO34", "ldr:1", ""],
+    ["esp32:3V3", "ldr:2", "red"],
+    ["esp32:GPIO2", "pir:1", ""],
+    ["esp32:3V3", "pir:VCC", "red"],
+    ["esp32:GND", "pir:GND", "black"],
+    ["esp32:GPIO21", "bme280:SDA", ""],
+    ["esp32:GPIO22", "bme280:SCL", ""],
+    ["esp32:3V3", "bme280:VCC", "red"],
+    ["esp32:GND", "bme280:GND", "black"],
+    ["esp32:GPIO5", "led1:A", ""],
+    ["esp32:GPIO18", "led2:A", ""],
+    ["esp32:GPIO19", "led3:A", ""],
+    ["esp32:GND", "led1:C", "black"],
+    ["esp32:GND", "led2:C", "black"],
+    ["esp32:GND", "led3:C", "black"]
+  ],
+  "dependencies": {
+    "libraries": [
+      {
+        "name": "DHT sensor library",
+        "version": "1.4.4"
+      },
+      {
+        "name": "Adafruit BME280 Library",
+        "version": "2.2.2"
+      },
+      {
+        "name": "ArduinoJson",
+        "version": "6.21.3"
+      },
+      {
+        "name": "PubSubClient",
+        "version": "2.8"
+      }
+    ]
+  },
+  "code": "// Sistema IoT Monitoring - Simulação Wokwi\n// Enterprise Challenge Sprint 3 - Reply\n\n#include <WiFi.h>\n#include <PubSubClient.h>\n#include <DHT.h>\n#include <Wire.h>\n#include <Adafruit_Sensor.h>\n#include <Adafruit_BME280.h>\n#include <ArduinoJson.h>\n\n// Configurações WiFi (simuladas)\nconst char* ssid = \"Wokwi-GUEST\";\nconst char* password = \"\";\n\n// Configurações MQTT\nconst char* mqtt_server = \"broker.hivemq.com\";\nconst int mqtt_port = 1883;\nconst char* mqtt_topic = \"industrial/sensors\";\nconst char* mqtt_client_id = \"ESP32_Wokwi_Simulation\";\n\n// Configurações dos sensores\n#define DHT_PIN 4\n#define DHT_TYPE DHT22\n#define LDR_PIN 34\n#define PIR_PIN 2\n#define BME280_SDA 21\n#define BME280_SCL 22\n#define LED1_PIN 5\n#define LED2_PIN 18\n#define LED3_PIN 19\n\n// Objetos dos sensores\nDHT dht(DHT_PIN, DHT_TYPE);\nAdafruit_BME280 bme;\n\n// Cliente MQTT\nWiFiClient espClient;\nPubSubClient client(espClient);\n\n// Variáveis de controle\nunsigned long lastRead = 0;\nconst unsigned long readInterval = 1000; // 1 segundo\nint readCount = 0;\nconst int maxReads = 60; // 60 leituras (1 minuto)\n\n// Estrutura para dados dos sensores\nstruct SensorData {\n  float temperature;\n  float humidity;\n  int light;\n  int motion;\n  float pressure;\n  unsigned long timestamp;\n  String quality;\n};\n\nvoid setup() {\n  Serial.begin(115200);\n  Serial.println(\"=== Sistema IoT Monitoring - Wokwi Simulation ===\");\n  Serial.println(\"Enterprise Challenge Sprint 3 - Reply\");\n  Serial.println(\"==============================================\");\n  \n  // Inicializar sensores\n  initializeSensors();\n  \n  // Conectar WiFi\n  connectWiFi();\n  \n  // Configurar MQTT\n  client.setServer(mqtt_server, mqtt_port);\n  client.setCallback(mqttCallback);\n  \n  Serial.println(\"Simulação inicializada com sucesso!\");\n  Serial.println(\"Iniciando coleta de dados simulados...\");\n  Serial.println();\n}\n\nvoid loop() {\n  unsigned long currentTime = millis();\n  \n  // Verificar conexão MQTT\n  if (!client.connected()) {\n    connectMQTT();\n  }\n  client.loop();\n  \n  // Coletar dados a cada 1 segundo\n  if (currentTime - lastRead >= readInterval) {\n    collectAndSendData();\n    lastRead = currentTime;\n    readCount++;\n    \n    // Parar após 60 leituras (1 minuto)\n    if (readCount >= maxReads) {\n      Serial.println(\"Simulação de coleta de dados concluída!\");\n      Serial.println(\"Total de leituras: \" + String(readCount));\n      Serial.println(\"Sistema em modo de espera...\");\n      while(true) {\n        delay(1000);\n      }\n    }\n  }\n}\n\nvoid initializeSensors() {\n  Serial.println(\"Inicializando sensores simulados...\");\n  \n  // Inicializar DHT22\n  dht.begin();\n  Serial.println(\"✓ DHT22 simulado inicializado\");\n  \n  // Inicializar BME280\n  Wire.begin(BME280_SDA, BME280_SCL);\n  if (bme.begin(0x76)) {\n    Serial.println(\"✓ BME280 simulado inicializado\");\n  } else {\n    Serial.println(\"✗ Erro ao inicializar BME280 simulado\");\n  }\n  \n  // Configurar pinos\n  pinMode(LDR_PIN, INPUT);\n  pinMode(PIR_PIN, INPUT);\n  pinMode(LED1_PIN, OUTPUT);\n  pinMode(LED2_PIN, OUTPUT);\n  pinMode(LED3_PIN, OUTPUT);\n  \n  Serial.println(\"✓ Todos os sensores simulados inicializados\");\n  Serial.println();\n}\n\nvoid connectWiFi() {\n  Serial.print(\"Conectando ao WiFi simulado: \");\n  Serial.println(ssid);\n  \n  WiFi.begin(ssid, password);\n  \n  int attempts = 0;\n  while (WiFi.status() != WL_CONNECTED && attempts < 10) {\n    delay(500);\n    Serial.print(\".\");\n    attempts++;\n  }\n  \n  if (WiFi.status() == WL_CONNECTED) {\n    Serial.println();\n    Serial.println(\"✓ WiFi simulado conectado!\");\n    Serial.print(\"IP: \");\n    Serial.println(WiFi.localIP());\n  } else {\n    Serial.println();\n    Serial.println(\"✗ Falha na conexão WiFi simulada\");\n    Serial.println(\"Continuando apenas com Serial...\");\n  }\n  Serial.println();\n}\n\nvoid connectMQTT() {\n  while (!client.connected()) {\n    Serial.print(\"Conectando ao MQTT...\");\n    \n    if (client.connect(mqtt_client_id)) {\n      Serial.println(\"✓ MQTT conectado!\");\n      client.subscribe(mqtt_topic);\n    } else {\n      Serial.print(\"✗ Falha, rc=\");\n      Serial.print(client.state());\n      Serial.println(\" Tentando novamente em 5 segundos...\");\n      delay(5000);\n    }\n  }\n}\n\nvoid mqttCallback(char* topic, byte* payload, unsigned int length) {\n  // Callback para mensagens MQTT recebidas\n  Serial.print(\"Mensagem MQTT recebida: \");\n  for (int i = 0; i < length; i++) {\n    Serial.print((char)payload[i]);\n  }\n  Serial.println();\n}\n\nvoid collectAndSendData() {\n  // Coletar dados dos sensores\n  SensorData data = readSensors();\n  \n  // Calcular qualidade dos dados\n  data.quality = calculateDataQuality(data);\n  \n  // Controlar LEDs baseado nos dados\n  controlLEDs(data);\n  \n  // Enviar via Serial (JSON)\n  sendSerialData(data);\n  \n  // Enviar via MQTT (se conectado)\n  if (WiFi.status() == WL_CONNECTED && client.connected()) {\n    sendMQTTData(data);\n  }\n  \n  // Imprimir resumo\n  printDataSummary(data);\n}\n\nSensorData readSensors() {\n  SensorData data;\n  data.timestamp = millis();\n  \n  // Ler DHT22 (Temperatura e Umidade)\n  data.temperature = dht.readTemperature();\n  data.humidity = dht.readHumidity();\n  \n  // Verificar se a leitura do DHT22 é válida\n  if (isnan(data.temperature) || isnan(data.humidity)) {\n    data.temperature = 0.0;\n    data.humidity = 0.0;\n  }\n  \n  // Ler LDR (Luminosidade)\n  int ldrValue = analogRead(LDR_PIN);\n  data.light = map(ldrValue, 0, 4095, 0, 1000); // Mapear para 0-1000 lux\n  \n  // Ler PIR (Movimento)\n  data.motion = digitalRead(PIR_PIN);\n  \n  // Ler BME280 (Pressão)\n  data.pressure = bme.readPressure() / 100.0; // Converter para hPa\n  \n  return data;\n}\n\nString calculateDataQuality(SensorData data) {\n  int qualityScore = 100;\n  \n  // Verificar temperatura (0-50°C)\n  if (data.temperature < 0 || data.temperature > 50) {\n    qualityScore -= 30;\n  }\n  \n  // Verificar umidade (0-100%)\n  if (data.humidity < 0 || data.humidity > 100) {\n    qualityScore -= 30;\n  }\n  \n  // Verificar luminosidade (0-1000 lux)\n  if (data.light < 0 || data.light > 1000) {\n    qualityScore -= 20;\n  }\n  \n  // Verificar pressão (900-1100 hPa)\n  if (data.pressure < 900 || data.pressure > 1100) {\n    qualityScore -= 20;\n  }\n  \n  if (qualityScore >= 90) return \"excelente\";\n  if (qualityScore >= 70) return \"boa\";\n  if (qualityScore >= 50) return \"regular\";\n  return \"ruim\";\n}\n\nvoid controlLEDs(SensorData data) {\n  // LED vermelho: Temperatura alta\n  digitalWrite(LED1_PIN, data.temperature > 30 ? HIGH : LOW);\n  \n  // LED verde: Movimento detectado\n  digitalWrite(LED2_PIN, data.motion ? HIGH : LOW);\n  \n  // LED azul: Luminosidade baixa\n  digitalWrite(LED3_PIN, data.light < 200 ? HIGH : LOW);\n}\n\nvoid sendSerialData(SensorData data) {\n  // Criar JSON\n  StaticJsonDocument<200> doc;\n  doc[\"device\"] = \"ESP32-Wokwi-Simulation\";\n  doc[\"timestamp\"] = data.timestamp;\n  doc[\"sensors\"][\"DHT22\"][\"temperature\"] = data.temperature;\n  doc[\"sensors\"][\"DHT22\"][\"humidity\"] = data.humidity;\n  doc[\"sensors\"][\"LDR\"][\"light\"] = data.light;\n  doc[\"sensors\"][\"PIR\"][\"motion\"] = data.motion;\n  doc[\"sensors\"][\"BME280\"][\"pressure\"] = data.pressure;\n  doc[\"quality\"] = data.quality;\n  doc[\"read_count\"] = readCount;\n  \n  // Enviar via Serial\n  serializeJson(doc, Serial);\n  Serial.println();\n}\n\nvoid sendMQTTData(SensorData data) {\n  // Criar JSON para MQTT\n  StaticJsonDocument<200> doc;\n  doc[\"device\"] = \"ESP32-Wokwi-Simulation\";\n  doc[\"timestamp\"] = data.timestamp;\n  doc[\"sensors\"][\"DHT22\"][\"temperature\"] = data.temperature;\n  doc[\"sensors\"][\"DHT22\"][\"humidity\"] = data.humidity;\n  doc[\"sensors\"][\"LDR\"][\"light\"] = data.light;\n  doc[\"sensors\"][\"PIR\"][\"motion\"] = data.motion;\n  doc[\"sensors\"][\"BME280\"][\"pressure\"] = data.pressure;\n  doc[\"quality\"] = data.quality;\n  doc[\"read_count\"] = readCount;\n  \n  // Serializar e enviar\n  char jsonBuffer[200];\n  serializeJson(doc, jsonBuffer);\n  client.publish(mqtt_topic, jsonBuffer);\n}\n\nvoid printDataSummary(SensorData data) {\n  Serial.println(\"--- Dados Simulados Coletados ---\");\n  Serial.print(\"Leitura #\");\n  Serial.print(readCount);\n  Serial.print(\" | Tempo: \");\n  Serial.print(data.timestamp);\n  Serial.println(\"ms\");\n  Serial.print(\"🌡️  Temperatura: \");\n  Serial.print(data.temperature);\n  Serial.println(\"°C\");\n  Serial.print(\"💧 Umidade: \");\n  Serial.print(data.humidity);\n  Serial.println(\"%\");\n  Serial.print(\"💡 Luminosidade: \");\n  Serial.print(data.light);\n  Serial.println(\" lux\");\n  Serial.print(\"👁️  Movimento: \");\n  Serial.println(data.motion ? \"SIM\" : \"NÃO\");\n  Serial.print(\"🌬️  Pressão: \");\n  Serial.print(data.pressure);\n  Serial.println(\" hPa\");\n  Serial.print(\"⭐ Qualidade: \");\n  Serial.println(data.quality);\n  Serial.println(\"----------------------------------\");\n  Serial.println();\n}",
+  "firmware": "esp32",
+  "backup": "backup_2024_01_11_14_30_00"
+}

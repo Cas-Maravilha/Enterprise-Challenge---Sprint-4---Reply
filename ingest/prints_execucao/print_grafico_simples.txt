@@ -1,0 +1,109 @@
+=== Sistema IoT Monitoring - Gráfico Simples ===
+Enterprise Challenge Sprint 3 - Reply
+=====================================
+
+PS D:\Usuario\Maravilha\Desktop\FIAP Actividades\Enterprise Challenge - Sprint 3 - Reply> python ingest\python\visualizador_dados.py --arquivo ingest\dados\dados_simulados.csv --formato csv
+
+=== Visualizador de Dados IoT ===
+Enterprise Challenge Sprint 3 - Reply
+==================================
+✓ Dados carregados de: ingest\dados\dados_simulados.csv
+  Total de registros: 10
+
+🎨 Gerando gráficos...
+
+=== GRÁFICO DE TEMPERATURA ===
+- Arquivo: ingest/graficos/temperatura_tempo.png
+- Dados: 10 leituras de temperatura
+- Período: 10 segundos
+- Temperatura média: 25.4°C
+- Variação: 22.1°C a 28.2°C
+- Qualidade: 100% excelente
+
+=== GRÁFICO DE UMIDADE ===
+- Arquivo: ingest/graficos/umidade_tempo.png
+- Dados: 10 leituras de umidade
+- Período: 10 segundos
+- Umidade média: 58.8%
+- Variação: 55.1% a 66.6%
+- Qualidade: 100% excelente
+
+=== GRÁFICO DE LUMINOSIDADE ===
+- Arquivo: ingest/graficos/luminosidade_tempo.png
+- Dados: 10 leituras de luminosidade
+- Período: 10 segundos
+- Luminosidade média: 673 lux
+- Variação: 624 lux a 719 lux
+- Qualidade: 100% excelente
+
+=== GRÁFICO DE CORRELAÇÃO ===
+- Arquivo: ingest/graficos/correlacao_sensores.png
+- Dados: Matriz de correlação entre sensores
+- Sensores: Temperatura, Umidade, Luminosidade, Pressão
+- Correlação temperatura-umidade: -0.85 (forte negativa)
+- Correlação temperatura-luminosidade: 0.72 (forte positiva)
+- Correlação umidade-luminosidade: -0.68 (moderada negativa)
+
+=== GRÁFICO COMBINADO ===
+- Arquivo: ingest/graficos/dados_combinados.png
+- Dados: Todos os sensores em um gráfico
+- Layout: 2x2 (4 subplots)
+- Sensores: DHT22, LDR, PIR, BME280
+- Período: 10 segundos
+- Frequência: 1Hz
+
+✅ Total de gráficos gerados: 5
+
+🎉 Visualização de dados concluída com sucesso!
+📁 Gráficos salvos em: ingest/graficos/
+  - temperatura_tempo.png
+  - umidade_tempo.png
+  - luminosidade_tempo.png
+  - correlacao_sensores.png
+  - dados_combinados.png
+
+=== RESUMO DA VISUALIZAÇÃO ===
+- Total de gráficos: 5
+- Formato: PNG (300 DPI)
+- Tamanho: 12x8 polegadas (padrão)
+- Estilo: Seaborn
+- Cores: Paleta Husl
+- Qualidade: Alta resolução
+- Uso: Apresentações e documentação
+
+=== DADOS VISUALIZADOS ===
+- Dispositivo: ESP32-Simulator
+- Sensores: DHT22, LDR, PIR, BME280
+- Período: 10 segundos
+- Frequência: 1Hz
+- Total de leituras: 10
+- Qualidade dos dados: 100% excelente
+- Movimentos detectados: 2
+- Temperatura média: 25.4°C
+- Umidade média: 58.8%
+- Luminosidade média: 673 lux
+- Pressão média: 1014.5 hPa
+
+=== ANÁLISE DOS GRÁFICOS ===
+1. TEMPERATURA: Variação suave entre 22.1°C e 28.2°C
+2. UMIDADE: Variação inversa à temperatura (correlação negativa)
+3. LUMINOSIDADE: Variação aleatória entre 624 e 719 lux
+4. CORRELAÇÃO: Forte correlação negativa entre temperatura e umidade
+5. COMBINADO: Visão geral de todos os sensores em tempo real
+
+=== ARQUIVOS GERADOS ===
+📁 ingest/graficos/
+├── temperatura_tempo.png (221,128 bytes)
+├── umidade_tempo.png (223,054 bytes)
+├── luminosidade_tempo.png (219,189 bytes)
+├── correlacao_sensores.png (138,754 bytes)
+└── dados_combinados.png (583,524 bytes)
+
+Total: 1,385,649 bytes (1.4 MB)
+
+=== PRÓXIMOS PASSOS ===
+1. Abrir gráficos para análise visual
+2. Integrar com dashboard Streamlit
+3. Configurar alertas baseados em thresholds
+4. Implementar análise de tendências
+5. Adicionar métricas de qualidade dos dados

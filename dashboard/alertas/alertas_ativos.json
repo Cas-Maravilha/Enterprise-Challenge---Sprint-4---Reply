@@ -1,0 +1,44 @@
+[
+  {
+    "id_alerta": 1001,
+    "tipo_alerta": "temperatura_alta",
+    "severidade": "critica",
+    "titulo": "Temperatura Crítica - ESP32-001",
+    "descricao": "Temperatura do sensor DHT22_Temp no dispositivo ESP32-001 atingiu valor crítico",
+    "valor_atual": 38.5,
+    "valor_limite": 35.0,
+    "timestamp_alerta": "2024-10-02T14:45:30Z",
+    "status": "ativo",
+    "sensor_nome": "DHT22_Temp",
+    "dispositivo_nome": "ESP32-001",
+    "localizacao": "Sala de Controle Principal"
+  },
+  {
+    "id_alerta": 1002,
+    "tipo_alerta": "umidade_alta",
+    "severidade": "alta",
+    "titulo": "Umidade Elevada - ESP32-002",
+    "descricao": "Umidade do sensor DHT22_Hum no dispositivo ESP32-002 acima do limite",
+    "valor_atual": 92.3,
+    "valor_limite": 90.0,
+    "timestamp_alerta": "2024-10-02T14:30:15Z",
+    "status": "ativo",
+    "sensor_nome": "DHT22_Hum",
+    "dispositivo_nome": "ESP32-002",
+    "localizacao": "Área de Produção A"
+  },
+  {
+    "id_alerta": 1003,
+    "tipo_alerta": "luminosidade_baixa",
+    "severidade": "baixa",
+    "titulo": "Luminosidade Baixa - ESP32-003",
+    "descricao": "Luminosidade do sensor LDR_Light no dispositivo ESP32-003 abaixo do limite",
+    "valor_atual": 85.2,
+    "valor_limite": 100.0,
+    "timestamp_alerta": "2024-10-02T14:15:45Z",
+    "status": "ativo",
+    "sensor_nome": "LDR_Light",
+    "dispositivo_nome": "ESP32-003",
+    "localizacao": "Área de Produção B"
+  }
+]

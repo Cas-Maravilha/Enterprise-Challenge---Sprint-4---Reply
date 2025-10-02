@@ -1,0 +1,21 @@
+2025-10-02 14:25:29,618 - INFO - === Simulador de Dados ESP32 ===
+2025-10-02 14:25:29,621 - INFO - Enterprise Challenge Sprint 3 - Reply
+2025-10-02 14:25:29,623 - INFO - ================================
+2025-10-02 14:25:29,623 - INFO - Iniciando simulação de dados...
+2025-10-02 14:25:29,624 - INFO - Duração: 10 segundos
+2025-10-02 14:25:29,624 - INFO - Frequência: 1 Hz
+2025-10-02 14:25:29,624 - INFO - Sensores: DHT22, LDR, PIR, BME280
+2025-10-02 14:25:29,625 - INFO - Leitura #1 gerada
+2025-10-02 14:25:30,629 - INFO - Leitura #2 gerada
+2025-10-02 14:25:31,634 - INFO - Leitura #3 gerada
+2025-10-02 14:25:32,637 - INFO - Leitura #4 gerada
+2025-10-02 14:25:33,638 - INFO - Leitura #5 gerada
+2025-10-02 14:25:34,639 - INFO - Leitura #6 gerada
+2025-10-02 14:25:35,640 - INFO - Leitura #7 gerada
+2025-10-02 14:25:36,641 - INFO - Leitura #8 gerada
+2025-10-02 14:25:37,642 - INFO - Leitura #9 gerada
+2025-10-02 14:25:38,642 - INFO - Leitura #10 gerada
+2025-10-02 14:25:39,644 - INFO - Simulação concluída! Total de leituras: 10
+2025-10-02 14:25:39,645 - INFO - Dados salvos em CSV: ingest/dados/dados_simulados.csv
+2025-10-02 14:25:39,647 - INFO - Dados salvos em JSON: ingest/dados/dados_simulados.json
+2025-10-02 14:25:39,650 - INFO - Relatório gerado: ingest/dados/relatorio_simulacao.json

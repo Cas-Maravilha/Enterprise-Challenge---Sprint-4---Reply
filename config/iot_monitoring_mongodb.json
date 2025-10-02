@@ -1,0 +1,976 @@
+{
+  "database": "iot_monitoring_db",
+  "version": "1.0",
+  "description": "Schema MongoDB para Sistema IoT Monitoring Sprint 3",
+  "collections": {
+    "dispositivos": {
+      "description": "Dispositivos ESP32 conectados ao sistema",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único do dispositivo"
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Nome identificador do dispositivo"
+          },
+          "mac_address": {
+            "type": "string",
+            "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
+            "description": "Endereço MAC único para identificação"
+          },
+          "ip_address": {
+            "type": "string",
+            "format": "ipv4",
+            "description": "Endereço IP atual do dispositivo"
+          },
+          "localizacao": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Local físico onde o dispositivo está instalado"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ativo", "inativo", "manutencao"],
+            "default": "ativo",
+            "description": "Estado operacional do dispositivo"
+          },
+          "data_cadastro": {
+            "type": "date",
+            "description": "Data de cadastro do dispositivo"
+          },
+          "ultima_conexao": {
+            "type": "date",
+            "description": "Timestamp da última comunicação"
+          },
+          "versao_firmware": {
+            "type": "string",
+            "maxLength": 20,
+            "description": "Versão do firmware instalado"
+          },
+          "observacoes": {
+            "type": "string",
+            "description": "Observações adicionais"
+          }
+        },
+        "required": ["nome", "mac_address", "status", "data_cadastro"],
+        "indexes": [
+          {
+            "keys": { "mac_address": 1 },
+            "options": { "unique": true }
+          },
+          {
+            "keys": { "status": 1 }
+          },
+          {
+            "keys": { "localizacao": 1 }
+          },
+          {
+            "keys": { "ultima_conexao": 1 }
+          }
+        ]
+      }
+    },
+    "tipos_sensor": {
+      "description": "Catálogo dos tipos de sensores disponíveis",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único do tipo de sensor"
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Nome do tipo de sensor"
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição detalhada do sensor"
+          },
+          "unidade_medida": {
+            "type": "string",
+            "maxLength": 20,
+            "description": "Unidade de medida específica"
+          },
+          "faixa_min": {
+            "type": "number",
+            "description": "Valor mínimo da faixa operacional"
+          },
+          "faixa_max": {
+            "type": "number",
+            "description": "Valor máximo da faixa operacional"
+          },
+          "precisao": {
+            "type": "number",
+            "description": "Precisão do sensor"
+          },
+          "ativo": {
+            "type": "boolean",
+            "default": true,
+            "description": "Indica se o tipo está ativo"
+          },
+          "data_cadastro": {
+            "type": "date",
+            "description": "Data de cadastro do tipo"
+          }
+        },
+        "required": ["nome", "ativo", "data_cadastro"],
+        "indexes": [
+          {
+            "keys": { "nome": 1 },
+            "options": { "unique": true }
+          },
+          {
+            "keys": { "ativo": 1 }
+          }
+        ]
+      }
+    },
+    "sensores": {
+      "description": "Sensores físicos instalados nos dispositivos",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único do sensor"
+          },
+          "id_dispositivo": {
+            "type": "ObjectId",
+            "description": "Referência ao dispositivo"
+          },
+          "id_tipo_sensor": {
+            "type": "ObjectId",
+            "description": "Referência ao tipo de sensor"
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Nome identificador do sensor"
+          },
+          "pino_analogico": {
+            "type": "integer",
+            "description": "Pino analógico utilizado"
+          },
+          "pino_digital": {
+            "type": "integer",
+            "description": "Pino digital utilizado"
+          },
+          "calibracao": {
+            "type": "object",
+            "properties": {
+              "min": {
+                "type": "number",
+                "description": "Valor mínimo de calibração"
+              },
+              "max": {
+                "type": "number",
+                "description": "Valor máximo de calibração"
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ativo", "inativo", "falha"],
+            "default": "ativo",
+            "description": "Estado operacional do sensor"
+          },
+          "data_instalacao": {
+            "type": "date",
+            "description": "Data de instalação do sensor"
+          },
+          "ultima_calibracao": {
+            "type": "date",
+            "description": "Data da última calibração"
+          },
+          "observacoes": {
+            "type": "string",
+            "description": "Observações adicionais"
+          }
+        },
+        "required": ["id_dispositivo", "id_tipo_sensor", "nome", "status", "data_instalacao"],
+        "indexes": [
+          {
+            "keys": { "id_dispositivo": 1 }
+          },
+          {
+            "keys": { "id_tipo_sensor": 1 }
+          },
+          {
+            "keys": { "status": 1 }
+          },
+          {
+            "keys": { "id_dispositivo": 1, "status": 1 }
+          }
+        ]
+      }
+    },
+    "leituras_sensores": {
+      "description": "Dados coletados pelos sensores (coleção principal)",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único da leitura"
+          },
+          "id_sensor": {
+            "type": "ObjectId",
+            "description": "Referência ao sensor"
+          },
+          "timestamp_unix": {
+            "type": "number",
+            "description": "Timestamp Unix com precisão de milissegundos"
+          },
+          "timestamp_datetime": {
+            "type": "date",
+            "description": "Timestamp legível para consultas"
+          },
+          "valor": {
+            "type": "object",
+            "properties": {
+              "numerico": {
+                "type": "number",
+                "description": "Valor numérico lido pelo sensor"
+              },
+              "booleano": {
+                "type": "boolean",
+                "description": "Valor booleano lido pelo sensor"
+              },
+              "string": {
+                "type": "string",
+                "maxLength": 255,
+                "description": "Valor string lido pelo sensor"
+              }
+            }
+          },
+          "qualidade_dados": {
+            "type": "string",
+            "enum": ["excelente", "bom", "regular", "ruim"],
+            "default": "bom",
+            "description": "Classificação da qualidade dos dados"
+          },
+          "anomalia_detectada": {
+            "type": "boolean",
+            "default": false,
+            "description": "Flag indicando se anomalia foi detectada"
+          },
+          "data_coleta": {
+            "type": "date",
+            "description": "Data de coleta do dado"
+          },
+          "metadados": {
+            "type": "object",
+            "properties": {
+              "versao_firmware": {
+                "type": "string",
+                "description": "Versão do firmware no momento da leitura"
+              },
+              "qualidade_sinal": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Qualidade do sinal (0-100%)"
+              },
+              "temperatura_ambiente": {
+                "type": "number",
+                "description": "Temperatura ambiente no momento da leitura"
+              }
+            }
+          }
+        },
+        "required": ["id_sensor", "timestamp_unix", "timestamp_datetime", "qualidade_dados", "anomalia_detectada", "data_coleta"],
+        "indexes": [
+          {
+            "keys": { "id_sensor": 1, "timestamp_datetime": 1 }
+          },
+          {
+            "keys": { "timestamp_datetime": 1 }
+          },
+          {
+            "keys": { "qualidade_dados": 1 }
+          },
+          {
+            "keys": { "anomalia_detectada": 1 }
+          },
+          {
+            "keys": { "data_coleta": 1 }
+          },
+          {
+            "keys": { "timestamp_datetime": 1, "qualidade_dados": 1 }
+          }
+        ]
+      }
+    },
+    "modos_operacao": {
+      "description": "Estados de operação do sistema",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único do modo"
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Nome do modo de operação"
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição do modo"
+          },
+          "cor_indicador": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$",
+            "description": "Código hexadecimal da cor para interface"
+          },
+          "ativo": {
+            "type": "boolean",
+            "default": true,
+            "description": "Indica se o modo está ativo"
+          },
+          "data_cadastro": {
+            "type": "date",
+            "description": "Data de cadastro do modo"
+          }
+        },
+        "required": ["nome", "ativo", "data_cadastro"],
+        "indexes": [
+          {
+            "keys": { "nome": 1 },
+            "options": { "unique": true }
+          },
+          {
+            "keys": { "ativo": 1 }
+          }
+        ]
+      }
+    },
+    "alertas": {
+      "description": "Sistema de alertas e notificações",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único do alerta"
+          },
+          "id_dispositivo": {
+            "type": "ObjectId",
+            "description": "Referência ao dispositivo"
+          },
+          "id_sensor": {
+            "type": "ObjectId",
+            "description": "Referência ao sensor (opcional)"
+          },
+          "id_modo": {
+            "type": "ObjectId",
+            "description": "Referência ao modo de operação"
+          },
+          "tipo_alerta": {
+            "type": "string",
+            "enum": ["temperatura", "umidade", "pressao", "vibracao", "nivel", "conexao", "geral"],
+            "description": "Tipo do alerta"
+          },
+          "severidade": {
+            "type": "string",
+            "enum": ["baixa", "media", "alta", "critica"],
+            "description": "Nível de severidade"
+          },
+          "titulo": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Título do alerta"
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição detalhada do alerta"
+          },
+          "valores": {
+            "type": "object",
+            "properties": {
+              "atual": {
+                "type": "number",
+                "description": "Valor atual que gerou o alerta"
+              },
+              "limite": {
+                "type": "number",
+                "description": "Valor limite configurado"
+              }
+            }
+          },
+          "timestamp_alerta": {
+            "type": "date",
+            "description": "Timestamp do alerta"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ativo", "resolvido", "ignorado"],
+            "default": "ativo",
+            "description": "Status do alerta"
+          },
+          "resolucao": {
+            "type": "object",
+            "properties": {
+              "data_resolucao": {
+                "type": "date",
+                "description": "Data de resolução do alerta"
+              },
+              "usuario_resolucao": {
+                "type": "string",
+                "maxLength": 100,
+                "description": "Usuário que resolveu o alerta"
+              },
+              "observacoes_resolucao": {
+                "type": "string",
+                "description": "Observações da resolução"
+              }
+            }
+          }
+        },
+        "required": ["id_dispositivo", "id_modo", "tipo_alerta", "severidade", "titulo", "timestamp_alerta", "status"],
+        "indexes": [
+          {
+            "keys": { "id_dispositivo": 1 }
+          },
+          {
+            "keys": { "id_sensor": 1 }
+          },
+          {
+            "keys": { "id_modo": 1 }
+          },
+          {
+            "keys": { "timestamp_alerta": 1 }
+          },
+          {
+            "keys": { "status": 1 }
+          },
+          {
+            "keys": { "severidade": 1 }
+          },
+          {
+            "keys": { "tipo_alerta": 1 }
+          },
+          {
+            "keys": { "status": 1, "severidade": 1 }
+          }
+        ]
+      }
+    },
+    "configuracoes_limites": {
+      "description": "Configurações de limites para alertas",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único da configuração"
+          },
+          "id_sensor": {
+            "type": "ObjectId",
+            "description": "Referência ao sensor"
+          },
+          "tipo_limite": {
+            "type": "string",
+            "enum": ["minimo", "maximo", "variacao"],
+            "description": "Tipo do limite"
+          },
+          "valor_limite": {
+            "type": "number",
+            "description": "Valor do limite"
+          },
+          "severidade": {
+            "type": "string",
+            "enum": ["baixa", "media", "alta", "critica"],
+            "description": "Severidade do alerta"
+          },
+          "ativo": {
+            "type": "boolean",
+            "default": true,
+            "description": "Indica se a configuração está ativa"
+          },
+          "data_criacao": {
+            "type": "date",
+            "description": "Data de criação"
+          },
+          "data_atualizacao": {
+            "type": "date",
+            "description": "Data de atualização"
+          },
+          "usuario_criacao": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Usuário que criou a configuração"
+          },
+          "observacoes": {
+            "type": "string",
+            "description": "Observações adicionais"
+          }
+        },
+        "required": ["id_sensor", "tipo_limite", "valor_limite", "severidade", "ativo", "data_criacao"],
+        "indexes": [
+          {
+            "keys": { "id_sensor": 1 }
+          },
+          {
+            "keys": { "tipo_limite": 1 }
+          },
+          {
+            "keys": { "ativo": 1 }
+          },
+          {
+            "keys": { "id_sensor": 1, "tipo_limite": 1 }
+          }
+        ]
+      }
+    },
+    "usuarios": {
+      "description": "Usuários do sistema",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único do usuário"
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Nome completo do usuário"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email único para login"
+          },
+          "senha_hash": {
+            "type": "string",
+            "description": "Hash da senha"
+          },
+          "perfil": {
+            "type": "string",
+            "enum": ["admin", "operador", "visualizador"],
+            "description": "Perfil de acesso do usuário"
+          },
+          "ativo": {
+            "type": "boolean",
+            "default": true,
+            "description": "Indica se o usuário está ativo"
+          },
+          "data_cadastro": {
+            "type": "date",
+            "description": "Data de cadastro"
+          },
+          "ultimo_login": {
+            "type": "date",
+            "description": "Data do último login"
+          },
+          "reset_senha": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "description": "Token para reset de senha"
+              },
+              "data_expiracao": {
+                "type": "date",
+                "description": "Data de expiração do token"
+              }
+            }
+          }
+        },
+        "required": ["nome", "email", "senha_hash", "perfil", "ativo", "data_cadastro"],
+        "indexes": [
+          {
+            "keys": { "email": 1 },
+            "options": { "unique": true }
+          },
+          {
+            "keys": { "perfil": 1 }
+          },
+          {
+            "keys": { "ativo": 1 }
+          }
+        ]
+      }
+    },
+    "logs_sistema": {
+      "description": "Log de atividades do sistema",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único do log"
+          },
+          "id_usuario": {
+            "type": "ObjectId",
+            "description": "Referência ao usuário"
+          },
+          "acao": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Ação realizada"
+          },
+          "tabela_afetada": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Tabela afetada pela ação"
+          },
+          "id_registro_afetado": {
+            "type": "ObjectId",
+            "description": "ID do registro afetado"
+          },
+          "dados_anteriores": {
+            "type": "object",
+            "description": "Dados anteriores (JSON)"
+          },
+          "dados_novos": {
+            "type": "object",
+            "description": "Dados novos (JSON)"
+          },
+          "ip_origem": {
+            "type": "string",
+            "format": "ipv4",
+            "description": "IP de origem da ação"
+          },
+          "user_agent": {
+            "type": "string",
+            "description": "User agent do navegador"
+          },
+          "timestamp_log": {
+            "type": "date",
+            "description": "Timestamp do log"
+          }
+        },
+        "required": ["acao", "timestamp_log"],
+        "indexes": [
+          {
+            "keys": { "id_usuario": 1 }
+          },
+          {
+            "keys": { "acao": 1 }
+          },
+          {
+            "keys": { "timestamp_log": 1 }
+          },
+          {
+            "keys": { "tabela_afetada": 1 }
+          },
+          {
+            "keys": { "timestamp_log": 1, "acao": 1 }
+          }
+        ]
+      }
+    },
+    "dashboards": {
+      "description": "Configurações de dashboards personalizados",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único do dashboard"
+          },
+          "id_usuario": {
+            "type": "ObjectId",
+            "description": "Referência ao usuário proprietário"
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Nome do dashboard"
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Descrição do dashboard"
+          },
+          "configuracoes": {
+            "type": "object",
+            "description": "Configurações do dashboard (JSON)"
+          },
+          "publico": {
+            "type": "boolean",
+            "default": false,
+            "description": "Indica se é público"
+          },
+          "ativo": {
+            "type": "boolean",
+            "default": true,
+            "description": "Indica se está ativo"
+          },
+          "data_criacao": {
+            "type": "date",
+            "description": "Data de criação"
+          },
+          "data_atualizacao": {
+            "type": "date",
+            "description": "Data de atualização"
+          }
+        },
+        "required": ["id_usuario", "nome", "publico", "ativo", "data_criacao"],
+        "indexes": [
+          {
+            "keys": { "id_usuario": 1 }
+          },
+          {
+            "keys": { "publico": 1 }
+          },
+          {
+            "keys": { "ativo": 1 }
+          },
+          {
+            "keys": { "id_usuario": 1, "ativo": 1 }
+          }
+        ]
+      }
+    },
+    "relatorios": {
+      "description": "Configurações de relatórios automáticos",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "ObjectId",
+            "description": "Identificador único do relatório"
+          },
+          "id_usuario": {
+            "type": "ObjectId",
+            "description": "Referência ao usuário proprietário"
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Nome do relatório"
+          },
+          "tipo_relatorio": {
+            "type": "string",
+            "enum": ["diario", "semanal", "mensal", "personalizado"],
+            "description": "Tipo do relatório"
+          },
+          "configuracoes": {
+            "type": "object",
+            "description": "Configurações do relatório (JSON)"
+          },
+          "frequencia": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Frequência de execução (cron)"
+          },
+          "ativo": {
+            "type": "boolean",
+            "default": true,
+            "description": "Indica se está ativo"
+          },
+          "proxima_execucao": {
+            "type": "date",
+            "description": "Próxima execução agendada"
+          },
+          "data_criacao": {
+            "type": "date",
+            "description": "Data de criação"
+          }
+        },
+        "required": ["id_usuario", "nome", "tipo_relatorio", "ativo", "data_criacao"],
+        "indexes": [
+          {
+            "keys": { "id_usuario": 1 }
+          },
+          {
+            "keys": { "tipo_relatorio": 1 }
+          },
+          {
+            "keys": { "proxima_execucao": 1 }
+          },
+          {
+            "keys": { "ativo": 1 }
+          }
+        ]
+      }
+    }
+  },
+  "views": {
+    "vw_leituras_completas": {
+      "description": "View para leituras com informações completas",
+      "pipeline": [
+        {
+          "$lookup": {
+            "from": "sensores",
+            "localField": "id_sensor",
+            "foreignField": "_id",
+            "as": "sensor"
+          }
+        },
+        {
+          "$unwind": "$sensor"
+        },
+        {
+          "$lookup": {
+            "from": "dispositivos",
+            "localField": "sensor.id_dispositivo",
+            "foreignField": "_id",
+            "as": "dispositivo"
+          }
+        },
+        {
+          "$unwind": "$dispositivo"
+        },
+        {
+          "$lookup": {
+            "from": "tipos_sensor",
+            "localField": "sensor.id_tipo_sensor",
+            "foreignField": "_id",
+            "as": "tipo_sensor"
+          }
+        },
+        {
+          "$unwind": "$tipo_sensor"
+        },
+        {
+          "$lookup": {
+            "from": "modos_operacao",
+            "localField": "qualidade_dados",
+            "foreignField": "nome",
+            "as": "modo_operacao"
+          }
+        },
+        {
+          "$unwind": {
+            "path": "$modo_operacao",
+            "preserveNullAndEmptyArrays": true
+          }
+        },
+        {
+          "$project": {
+            "id_leitura": "$_id",
+            "dispositivo": "$dispositivo.nome",
+            "localizacao": "$dispositivo.localizacao",
+            "tipo_sensor": "$tipo_sensor.nome",
+            "sensor": "$sensor.nome",
+            "timestamp_datetime": "$timestamp_datetime",
+            "valor_numerico": "$valor.numerico",
+            "valor_booleano": "$valor.booleano",
+            "valor_string": "$valor.string",
+            "qualidade_dados": "$qualidade_dados",
+            "anomalia_detectada": "$anomalia_detectada",
+            "modo_operacao": "$modo_operacao.nome",
+            "cor_indicador": "$modo_operacao.cor_indicador"
+          }
+        }
+      ]
+    },
+    "vw_alertas_ativos": {
+      "description": "View para alertas ativos",
+      "pipeline": [
+        {
+          "$match": {
+            "status": "ativo"
+          }
+        },
+        {
+          "$lookup": {
+            "from": "dispositivos",
+            "localField": "id_dispositivo",
+            "foreignField": "_id",
+            "as": "dispositivo"
+          }
+        },
+        {
+          "$unwind": "$dispositivo"
+        },
+        {
+          "$lookup": {
+            "from": "sensores",
+            "localField": "id_sensor",
+            "foreignField": "_id",
+            "as": "sensor"
+          }
+        },
+        {
+          "$unwind": {
+            "path": "$sensor",
+            "preserveNullAndEmptyArrays": true
+          }
+        },
+        {
+          "$lookup": {
+            "from": "modos_operacao",
+            "localField": "id_modo",
+            "foreignField": "_id",
+            "as": "modo_operacao"
+          }
+        },
+        {
+          "$unwind": "$modo_operacao"
+        },
+        {
+          "$project": {
+            "id_alerta": "$_id",
+            "dispositivo": "$dispositivo.nome",
+            "localizacao": "$dispositivo.localizacao",
+            "sensor": "$sensor.nome",
+            "tipo_alerta": "$tipo_alerta",
+            "severidade": "$severidade",
+            "titulo": "$titulo",
+            "descricao": "$descricao",
+            "valor_atual": "$valores.atual",
+            "valor_limite": "$valores.limite",
+            "timestamp_alerta": "$timestamp_alerta",
+            "cor_indicador": "$modo_operacao.cor_indicador"
+          }
+        }
+      ]
+    }
+  },
+  "data_samples": {
+    "dispositivos": [
+      {
+        "nome": "ESP32-Sala-01",
+        "mac_address": "AA:BB:CC:DD:EE:FF",
+        "ip_address": "192.168.1.100",
+        "localizacao": "Sala de Controle Principal",
+        "status": "ativo",
+        "data_cadastro": "2025-01-11T10:00:00Z",
+        "versao_firmware": "v1.2.3"
+      }
+    ],
+    "tipos_sensor": [
+      {
+        "nome": "DHT22",
+        "descricao": "Sensor de temperatura e umidade digital",
+        "unidade_medida": "°C/%",
+        "faixa_min": -40.0,
+        "faixa_max": 80.0,
+        "precisao": 0.5,
+        "ativo": true,
+        "data_cadastro": "2025-01-11T10:00:00Z"
+      }
+    ],
+    "leituras_sensores": [
+      {
+        "id_sensor": "ObjectId('507f1f77bcf86cd799439011')",
+        "timestamp_unix": 1705056000.123,
+        "timestamp_datetime": "2025-01-11T10:00:00.123Z",
+        "valor": {
+          "numerico": 25.5,
+          "booleano": true,
+          "string": "normal"
+        },
+        "qualidade_dados": "bom",
+        "anomalia_detectada": false,
+        "data_coleta": "2025-01-11T10:00:00Z",
+        "metadados": {
+          "versao_firmware": "v1.2.3",
+          "qualidade_sinal": 95.5,
+          "temperatura_ambiente": 22.1
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "best_model": "Random Forest",
+  "best_f1_score": 0.892,
+  "best_accuracy": 0.945,
+  "all_models": {
+    "Random Forest": {
+      "Accuracy": 0.945,
+      "Precision": 0.876,
+      "Recall": 0.908,
+      "F1-Score": 0.892
+    },
+    "Isolation Forest": {
+      "Accuracy": 0.823,
+      "Precision": 0.654,
+      "Recall": 0.712,
+      "F1-Score": 0.682
+    },
+    "One-Class SVM": {
+      "Accuracy": 0.789,
+      "Precision": 0.598,
+      "Recall": 0.634,
+      "F1-Score": 0.615
+    },
+    "Local Outlier Factor": {
+      "Accuracy": 0.756,
+      "Precision": 0.543,
+      "Recall": 0.587,
+      "F1-Score": 0.564
+    }
+  }
+}

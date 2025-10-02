@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-01-11T00:00:00.000Z" agent="5.0" etag="abc123" version="22.1.16" type="device">
+  <diagram name="Arquitetura Final - Sistema IoT Monitoring" id="arquitetura-final-iot">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Título Principal -->
+        <mxCell id="title" value="Sistema IoT Monitoring - Arquitetura Final" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#2F5233;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- FONTE DE DADOS -->
+        <mxCell id="fonte-dados" value="FONTE DE DADOS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#01579B;fontSize=16;fontStyle=1;fontColor=#01579B;" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Sensores ESP32 -->
+        <mxCell id="esp32-sensores" value="ESP32 + Sensores&#xa;• DHT22 (Temp/Umidade)&#xa;• LDR (Luminosidade)&#xa;• PIR (Movimento)&#xa;• Pressão Barométrica&#xa;• Vibração Triaxial&#xa;• Nível Ultrassônico" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=12;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="70" y="180" width="160" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Simulação Wokwi -->
+        <mxCell id="wokwi-sim" value="Simulação Wokwi&#xa;• Ambiente Virtual&#xa;• Dados Sintéticos&#xa;• Testes de Integração" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=12;fontColor=#4A148C;" vertex="1" parent="1">
+          <mxGeometry x="70" y="320" width="160" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- INGESTÃO -->
+        <mxCell id="ingestao" value="INGESTÃO DE DADOS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=16;fontStyle=1;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="350" y="100" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- MQTT Broker -->
+        <mxCell id="mqtt-broker" value="MQTT Broker&#xa;• HiveMQ Cloud&#xa;• Tópico: industrial/sensors/data&#xa;• QoS 1 (At Least Once)&#xa;• Retenção de Mensagens" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=12;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="370" y="180" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Pipeline Integrado -->
+        <mxCell id="pipeline-integrado" value="Pipeline Integrado ESP32&#xa;• Recebimento MQTT&#xa;• Validação de Dados&#xa;• Processamento em Tempo Real&#xa;• Cache Inteligente&#xa;• Thread Pool" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;fontSize=12;fontColor=#F57F17;" vertex="1" parent="1">
+          <mxGeometry x="370" y="300" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- ARMAZENAMENTO -->
+        <mxCell id="armazenamento" value="ARMAZENAMENTO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;fontSize=16;fontStyle=1;fontColor=#C2185B;" vertex="1" parent="1">
+          <mxGeometry x="650" y="100" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Banco MySQL -->
+        <mxCell id="mysql-db" value="MySQL Database&#xa;• 11 Tabelas Relacionais&#xa;• Índices Otimizados&#xa;• Particionamento por Ano&#xa;• Pool de Conexões&#xa;• Triggers Automáticos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=12;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="670" y="180" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Tabelas Principais -->
+        <mxCell id="tabelas-principais" value="Tabelas Principais&#xa;• dispositivos&#xa;• sensores&#xa;• leituras_sensores&#xa;• alertas&#xa;• usuarios&#xa;• logs_sistema" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=12;fontColor=#4A148C;" vertex="1" parent="1">
+          <mxGeometry x="670" y="300" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- MACHINE LEARNING -->
+        <mxCell id="ml" value="MACHINE LEARNING" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=16;fontStyle=1;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="950" y="100" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Modelos ML -->
+        <mxCell id="modelos-ml" value="Modelos de ML&#xa;• Random Forest Classifier&#xa;• Isolation Forest&#xa;• Ensemble Híbrido&#xa;• 10 Features (7 originais + 3 derivadas)&#xa;• Retreinamento Automático" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#01579B;fontSize=12;fontColor=#01579B;" vertex="1" parent="1">
+          <mxGeometry x="970" y="180" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Detecção Anomalias -->
+        <mxCell id="detecao-anomalias" value="Detecção de Anomalias&#xa;• Inferência em Tempo Real&#xa;• Thresholds Configuráveis&#xa;• Níveis de Confiança&#xa;• Alertas Automáticos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;fontSize=12;fontColor=#F57F17;" vertex="1" parent="1">
+          <mxGeometry x="970" y="300" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- VISUALIZAÇÃO E ALERTAS -->
+        <mxCell id="visualizacao" value="VISUALIZAÇÃO E ALERTAS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=16;fontStyle=1;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="50" y="500" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Dashboard Web -->
+        <mxCell id="dashboard-web" value="Dashboard Web&#xa;• Interface Responsiva&#xa;• KPIs em Tempo Real&#xa;• Gráficos Interativos&#xa;• Atualização Automática&#xa;• API REST" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=12;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="580" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Sistema de Alertas -->
+        <mxCell id="sistema-alertas" value="Sistema de Alertas&#xa;• Thresholds Configuráveis&#xa;• Regras Simples&#xa;• Classificação por Severidade&#xa;• Notificações Visuais" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=12;fontColor=#C62828;" vertex="1" parent="1">
+          <mxGeometry x="70" y="700" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Relatórios Automáticos -->
+        <mxCell id="relatorios-auto" value="Relatórios Automáticos&#xa;• Diários/Semanais/Mensais&#xa;• Gráficos Personalizados&#xa;• Templates HTML&#xa;• Envio por Email" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#4A148C;fontSize=12;fontColor=#4A148C;" vertex="1" parent="1">
+          <mxGeometry x="70" y="820" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- MONITORAMENTO -->
+        <mxCell id="monitoramento" value="MONITORAMENTO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;fontSize=16;fontStyle=1;fontColor=#C2185B;" vertex="1" parent="1">
+          <mxGeometry x="350" y="500" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- KPIs Sistema -->
+        <mxCell id="kpis-sistema" value="KPIs do Sistema&#xa;• Dispositivos Ativos&#xa;• Leituras por Segundo&#xa;• Taxa de Anomalias&#xa;• Disponibilidade&#xa;• Performance ML" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=12;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="370" y="580" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Observabilidade -->
+        <mxCell id="observabilidade" value="Observabilidade&#xa;• Logs Estruturados&#xa;• Métricas de Performance&#xa;• Monitoramento de Drift&#xa;• Alertas de Sistema" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=12;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="370" y="700" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- INTEGRAÇÃO -->
+        <mxCell id="integracao" value="INTEGRAÇÃO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#01579B;fontSize=16;fontStyle=1;fontColor=#01579B;" vertex="1" parent="1">
+          <mxGeometry x="650" y="500" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- APIs REST -->
+        <mxCell id="apis-rest" value="APIs REST&#xa;• /api/kpis&#xa;• /api/alertas&#xa;• /api/graficos/*&#xa;• /api/status&#xa;• Documentação Swagger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=12;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="670" y="580" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Webhooks -->
+        <mxCell id="webhooks" value="Webhooks&#xa;• Notificações Externas&#xa;• Integração com Slack&#xa;• Integração com Teams&#xa;• Callbacks Customizados" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57F17;fontSize=12;fontColor=#F57F17;" vertex="1" parent="1">
+          <mxGeometry x="670" y="700" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- SEGURANÇA -->
+        <mxCell id="seguranca" value="SEGURANÇA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=16;fontStyle=1;fontColor=#C62828;" vertex="1" parent="1">
+          <mxGeometry x="950" y="500" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Autenticação -->
+        <mxCell id="autenticacao" value="Autenticação&#xa;• JWT Tokens&#xa;• RBAC (Role-Based)&#xa;• MFA (Multi-Factor)&#xa;• Session Management" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;fontSize=12;fontColor=#C2185B;" vertex="1" parent="1">
+          <mxGeometry x="970" y="580" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Criptografia -->
+        <mxCell id="criptografia" value="Criptografia&#xa;• TLS 1.3&#xa;• AES-256&#xa;• Hash de Senhas&#xa;• Certificados SSL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E8;strokeColor=#2E7D32;fontSize=12;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="970" y="700" width="160" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- FLUXO DE DADOS - SETAS -->
+        
+        <!-- ESP32 → MQTT -->
+        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#2E7D32;" edge="1" parent="1" source="esp32-sensores" target="mqtt-broker">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="250" y="240" as="sourcePoint" />
+            <mxPoint x="360" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Wokwi → MQTT -->
+        <mxCell id="arrow2" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#4A148C;" edge="1" parent="1" source="wokwi-sim" target="mqtt-broker">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="250" y="360" as="sourcePoint" />
+            <mxPoint x="360" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- MQTT → Pipeline -->
+        <mxCell id="arrow3" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#1565C0;" edge="1" parent="1" source="mqtt-broker" target="pipeline-integrado">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="230" as="sourcePoint" />
+            <mxPoint x="450" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Pipeline → MySQL -->
+        <mxCell id="arrow4" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#C2185B;" edge="1" parent="1" source="pipeline-integrado" target="mysql-db">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="350" as="sourcePoint" />
+            <mxPoint x="660" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- MySQL → Tabelas -->
+        <mxCell id="arrow5" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#4A148C;" edge="1" parent="1" source="mysql-db" target="tabelas-principais">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="750" y="230" as="sourcePoint" />
+            <mxPoint x="750" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- MySQL → ML -->
+        <mxCell id="arrow6" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#E65100;" edge="1" parent="1" source="mysql-db" target="modelos-ml">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="850" y="230" as="sourcePoint" />
+            <mxPoint x="960" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- ML → Detecção -->
+        <mxCell id="arrow7" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#F57F17;" edge="1" parent="1" source="modelos-ml" target="detecao-anomalias">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1050" y="230" as="sourcePoint" />
+            <mxPoint x="1050" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Detecção → Alertas -->
+        <mxCell id="arrow8" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#C62828;" edge="1" parent="1" source="detecao-anomalias" target="sistema-alertas">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1050" y="400" as="sourcePoint" />
+            <mxPoint x="150" y="400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1050" y="450" />
+              <mxPoint x="150" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- MySQL → Dashboard -->
+        <mxCell id="arrow9" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#1565C0;" edge="1" parent="1" source="mysql-db" target="dashboard-web">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="750" y="400" as="sourcePoint" />
+            <mxPoint x="150" y="400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="750" y="450" />
+              <mxPoint x="150" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- MySQL → KPIs -->
+        <mxCell id="arrow10" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="mysql-db" target="kpis-sistema">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="750" y="400" as="sourcePoint" />
+            <mxPoint x="450" y="400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="750" y="450" />
+              <mxPoint x="450" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Dashboard → APIs -->
+        <mxCell id="arrow11" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#01579B;" edge="1" parent="1" source="dashboard-web" target="apis-rest">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="250" y="630" as="sourcePoint" />
+            <mxPoint x="650" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- APIs → Webhooks -->
+        <mxCell id="arrow12" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#F57F17;" edge="1" parent="1" source="apis-rest" target="webhooks">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="750" y="630" as="sourcePoint" />
+            <mxPoint x="750" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- LEGENDA -->
+        <mxCell id="legenda" value="LEGENDA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=14;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="50" y="950" width="100" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legenda-verde" value="Fluxo Principal" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="170" y="950" width="100" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legenda-azul" value="Dados e Processamento" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="170" y="970" width="120" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legenda-vermelho" value="Alertas e Segurança" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#C62828;" vertex="1" parent="1">
+          <mxGeometry x="170" y="990" width="120" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- LINHAS DE LEGENDA -->
+        <mxCell id="linha-verde" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#2E7D32;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="160" y="960" as="sourcePoint" />
+            <mxPoint x="200" y="960" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="linha-azul" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#1565C0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="160" y="980" as="sourcePoint" />
+            <mxPoint x="200" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="linha-vermelho" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#C62828;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="160" y="1000" as="sourcePoint" />
+            <mxPoint x="200" y="1000" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- INFORMAÇÕES TÉCNICAS -->
+        <mxCell id="info-tecnica" value="INFORMAÇÕES TÉCNICAS&#xa;&#xa;• Tecnologias: Python, Flask, MySQL, MQTT, Scikit-learn, Plotly&#xa;• Arquitetura: Microserviços com comunicação assíncrona&#xa;• Escalabilidade: Horizontal com load balancing&#xa;• Monitoramento: Logs estruturados e métricas em tempo real&#xa;• Segurança: TLS, JWT, RBAC e criptografia end-to-end&#xa;• Disponibilidade: 99.9% com redundância e failover" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8F9FA;strokeColor=#6C757D;fontSize=11;fontColor=#495057;align=left;" vertex="1" parent="1">
+          <mxGeometry x="400" y="950" width="500" height="120" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DBeaver Database Configuration -->
+<configuration>
+  <database name="iot_monitoring_db" type="mysql" version="8.0">
+    
+    <!-- Connection Settings -->
+    <connection>
+      <host>localhost</host>
+      <port>3306</port>
+      <database>iot_monitoring_db</database>
+      <username>root</username>
+      <password>password</password>
+      <charset>utf8mb4</charset>
+      <collation>utf8mb4_unicode_ci</collation>
+    </connection>
+    
+    <!-- Tables Configuration -->
+    <tables>
+      
+      <!-- Dispositivos Table -->
+      <table name="dispositivos" comment="Dispositivos ESP32 conectados ao sistema">
+        <column name="id_dispositivo" type="INT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único do dispositivo"/>
+        <column name="nome" type="VARCHAR(100)" notNull="true" comment="Nome identificador do dispositivo"/>
+        <column name="mac_address" type="VARCHAR(17)" notNull="true" unique="true" comment="Endereço MAC único para identificação"/>
+        <column name="ip_address" type="VARCHAR(15)" comment="Endereço IP atual do dispositivo"/>
+        <column name="localizacao" type="VARCHAR(200)" comment="Local físico onde o dispositivo está instalado"/>
+        <column name="status" type="ENUM('ativo','inativo','manutencao')" notNull="true" default="'ativo'" comment="Estado operacional do dispositivo"/>
+        <column name="data_cadastro" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Data de cadastro do dispositivo"/>
+        <column name="ultima_conexao" type="TIMESTAMP" comment="Timestamp da última comunicação"/>
+        <column name="versao_firmware" type="VARCHAR(20)" comment="Versão do firmware instalado"/>
+        <column name="observacoes" type="TEXT" comment="Observações adicionais"/>
+        <index name="idx_dispositivos_status" columns="status"/>
+        <index name="idx_dispositivos_localizacao" columns="localizacao"/>
+      </table>
+      
+      <!-- Tipos Sensor Table -->
+      <table name="tipos_sensor" comment="Catálogo dos tipos de sensores disponíveis">
+        <column name="id_tipo_sensor" type="INT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único do tipo de sensor"/>
+        <column name="nome" type="VARCHAR(50)" notNull="true" unique="true" comment="Nome do tipo de sensor"/>
+        <column name="descricao" type="TEXT" comment="Descrição detalhada do sensor"/>
+        <column name="unidade_medida" type="VARCHAR(20)" comment="Unidade de medida específica"/>
+        <column name="faixa_min" type="DECIMAL(10,3)" comment="Valor mínimo da faixa operacional"/>
+        <column name="faixa_max" type="DECIMAL(10,3)" comment="Valor máximo da faixa operacional"/>
+        <column name="precisao" type="DECIMAL(8,3)" comment="Precisão do sensor"/>
+        <column name="ativo" type="TINYINT(1)" notNull="true" default="1" comment="Indica se o tipo está ativo"/>
+        <column name="data_cadastro" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Data de cadastro do tipo"/>
+      </table>
+      
+      <!-- Sensores Table -->
+      <table name="sensores" comment="Sensores físicos instalados nos dispositivos">
+        <column name="id_sensor" type="INT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único do sensor"/>
+        <column name="id_dispositivo" type="INT" notNull="true" comment="Referência ao dispositivo"/>
+        <column name="id_tipo_sensor" type="INT" notNull="true" comment="Referência ao tipo de sensor"/>
+        <column name="nome" type="VARCHAR(100)" notNull="true" comment="Nome identificador do sensor"/>
+        <column name="pino_analogico" type="INT" comment="Pino analógico utilizado"/>
+        <column name="pino_digital" type="INT" comment="Pino digital utilizado"/>
+        <column name="calibracao_min" type="DECIMAL(10,3)" comment="Valor mínimo de calibração"/>
+        <column name="calibracao_max" type="DECIMAL(10,3)" comment="Valor máximo de calibração"/>
+        <column name="status" type="ENUM('ativo','inativo','falha')" notNull="true" default="'ativo'" comment="Estado operacional do sensor"/>
+        <column name="data_instalacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Data de instalação do sensor"/>
+        <column name="ultima_calibracao" type="TIMESTAMP" comment="Data da última calibração"/>
+        <column name="observacoes" type="TEXT" comment="Observações adicionais"/>
+        <foreignKey name="fk_sensores_dispositivos" references="dispositivos(id_dispositivo)" onDelete="CASCADE"/>
+        <foreignKey name="fk_sensores_tipos_sensor" references="tipos_sensor(id_tipo_sensor)" onDelete="CASCADE"/>
+        <index name="idx_sensores_status" columns="status"/>
+      </table>
+      
+      <!-- Leituras Sensores Table -->
+      <table name="leituras_sensores" comment="Dados coletados pelos sensores (tabela principal)" partitioned="true">
+        <column name="id_leitura" type="BIGINT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único da leitura"/>
+        <column name="id_sensor" type="INT" notNull="true" comment="Referência ao sensor"/>
+        <column name="timestamp_unix" type="DECIMAL(15,3)" notNull="true" comment="Timestamp Unix com precisão de milissegundos"/>
+        <column name="timestamp_datetime" type="TIMESTAMP" notNull="true" comment="Timestamp legível para consultas"/>
+        <column name="valor_numerico" type="DECIMAL(12,6)" comment="Valor numérico lido pelo sensor"/>
+        <column name="valor_booleano" type="TINYINT(1)" comment="Valor booleano lido pelo sensor"/>
+        <column name="valor_string" type="VARCHAR(255)" comment="Valor string lido pelo sensor"/>
+        <column name="qualidade_dados" type="ENUM('excelente','bom','regular','ruim')" notNull="true" default="'bom'" comment="Classificação da qualidade dos dados"/>
+        <column name="anomalia_detectada" type="TINYINT(1)" notNull="true" default="0" comment="Flag indicando se anomalia foi detectada"/>
+        <column name="data_coleta" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Data de coleta do dado"/>
+        <foreignKey name="fk_leituras_sensores" references="sensores(id_sensor)" onDelete="CASCADE"/>
+        <index name="idx_leituras_timestamp" columns="timestamp_datetime"/>
+        <index name="idx_leituras_qualidade" columns="qualidade_dados"/>
+        <index name="idx_leituras_anomalia" columns="anomalia_detectada"/>
+        <index name="idx_leituras_sensor_timestamp" columns="id_sensor,timestamp_datetime"/>
+        <partition name="p2024" condition="timestamp_datetime < '2025-01-01'"/>
+        <partition name="p2025" condition="timestamp_datetime < '2026-01-01'"/>
+        <partition name="p2026" condition="timestamp_datetime < '2027-01-01'"/>
+        <partition name="p_future" condition="timestamp_datetime >= '2027-01-01'"/>
+      </table>
+      
+      <!-- Modos Operacao Table -->
+      <table name="modos_operacao" comment="Estados de operação do sistema">
+        <column name="id_modo" type="INT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único do modo"/>
+        <column name="nome" type="VARCHAR(50)" notNull="true" unique="true" comment="Nome do modo de operação"/>
+        <column name="descricao" type="TEXT" comment="Descrição do modo"/>
+        <column name="cor_indicador" type="VARCHAR(7)" comment="Código hexadecimal da cor para interface"/>
+        <column name="ativo" type="TINYINT(1)" notNull="true" default="1" comment="Indica se o modo está ativo"/>
+        <column name="data_cadastro" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Data de cadastro do modo"/>
+      </table>
+      
+      <!-- Alertas Table -->
+      <table name="alertas" comment="Sistema de alertas e notificações">
+        <column name="id_alerta" type="BIGINT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único do alerta"/>
+        <column name="id_dispositivo" type="INT" notNull="true" comment="Referência ao dispositivo"/>
+        <column name="id_sensor" type="INT" comment="Referência ao sensor (opcional)"/>
+        <column name="id_modo" type="INT" notNull="true" comment="Referência ao modo de operação"/>
+        <column name="tipo_alerta" type="ENUM('temperatura','umidade','pressao','vibracao','nivel','conexao','geral')" notNull="true" comment="Tipo do alerta"/>
+        <column name="severidade" type="ENUM('baixa','media','alta','critica')" notNull="true" comment="Nível de severidade"/>
+        <column name="titulo" type="VARCHAR(200)" notNull="true" comment="Título do alerta"/>
+        <column name="descricao" type="TEXT" comment="Descrição detalhada do alerta"/>
+        <column name="valor_atual" type="DECIMAL(12,6)" comment="Valor atual que gerou o alerta"/>
+        <column name="valor_limite" type="DECIMAL(12,6)" comment="Valor limite configurado"/>
+        <column name="timestamp_alerta" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Timestamp do alerta"/>
+        <column name="status" type="ENUM('ativo','resolvido','ignorado')" notNull="true" default="'ativo'" comment="Status do alerta"/>
+        <column name="data_resolucao" type="TIMESTAMP" comment="Data de resolução do alerta"/>
+        <column name="usuario_resolucao" type="VARCHAR(100)" comment="Usuário que resolveu o alerta"/>
+        <column name="observacoes_resolucao" type="TEXT" comment="Observações da resolução"/>
+        <foreignKey name="fk_alertas_dispositivos" references="dispositivos(id_dispositivo)" onDelete="CASCADE"/>
+        <foreignKey name="fk_alertas_sensores" references="sensores(id_sensor)" onDelete="SET NULL"/>
+        <foreignKey name="fk_alertas_modos_operacao" references="modos_operacao(id_modo)" onDelete="CASCADE"/>
+        <index name="idx_alertas_timestamp" columns="timestamp_alerta"/>
+        <index name="idx_alertas_status" columns="status"/>
+        <index name="idx_alertas_severidade" columns="severidade"/>
+      </table>
+      
+      <!-- Configuracoes Limites Table -->
+      <table name="configuracoes_limites" comment="Configurações de limites para alertas">
+        <column name="id_configuracao" type="INT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único da configuração"/>
+        <column name="id_sensor" type="INT" notNull="true" comment="Referência ao sensor"/>
+        <column name="tipo_limite" type="ENUM('minimo','maximo','variacao')" notNull="true" comment="Tipo do limite"/>
+        <column name="valor_limite" type="DECIMAL(12,6)" notNull="true" comment="Valor do limite"/>
+        <column name="severidade" type="ENUM('baixa','media','alta','critica')" notNull="true" comment="Severidade do alerta"/>
+        <column name="ativo" type="TINYINT(1)" notNull="true" default="1" comment="Indica se a configuração está ativa"/>
+        <column name="data_criacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Data de criação"/>
+        <column name="data_atualizacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" comment="Data de atualização"/>
+        <column name="usuario_criacao" type="VARCHAR(100)" comment="Usuário que criou a configuração"/>
+        <column name="observacoes" type="TEXT" comment="Observações adicionais"/>
+        <foreignKey name="fk_configuracoes_limites_sensores" references="sensores(id_sensor)" onDelete="CASCADE"/>
+        <index name="idx_configuracoes_tipo_limite" columns="tipo_limite"/>
+        <index name="idx_configuracoes_ativo" columns="ativo"/>
+      </table>
+      
+      <!-- Usuarios Table -->
+      <table name="usuarios" comment="Usuários do sistema">
+        <column name="id_usuario" type="INT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único do usuário"/>
+        <column name="nome" type="VARCHAR(100)" notNull="true" comment="Nome completo do usuário"/>
+        <column name="email" type="VARCHAR(255)" notNull="true" unique="true" comment="Email único para login"/>
+        <column name="senha_hash" type="VARCHAR(255)" notNull="true" comment="Hash da senha"/>
+        <column name="perfil" type="ENUM('admin','operador','visualizador')" notNull="true" comment="Perfil de acesso do usuário"/>
+        <column name="ativo" type="TINYINT(1)" notNull="true" default="1" comment="Indica se o usuário está ativo"/>
+        <column name="data_cadastro" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Data de cadastro"/>
+        <column name="ultimo_login" type="TIMESTAMP" comment="Data do último login"/>
+        <column name="token_reset_senha" type="VARCHAR(255)" comment="Token para reset de senha"/>
+        <column name="data_expiracao_token" type="TIMESTAMP" comment="Data de expiração do token"/>
+        <index name="idx_usuarios_perfil" columns="perfil"/>
+        <index name="idx_usuarios_ativo" columns="ativo"/>
+      </table>
+      
+      <!-- Logs Sistema Table -->
+      <table name="logs_sistema" comment="Log de atividades do sistema">
+        <column name="id_log" type="BIGINT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único do log"/>
+        <column name="id_usuario" type="INT" comment="Referência ao usuário"/>
+        <column name="acao" type="VARCHAR(100)" notNull="true" comment="Ação realizada"/>
+        <column name="tabela_afetada" type="VARCHAR(50)" comment="Tabela afetada pela ação"/>
+        <column name="id_registro_afetado" type="BIGINT" comment="ID do registro afetado"/>
+        <column name="dados_anteriores" type="JSON" comment="Dados anteriores (JSON)"/>
+        <column name="dados_novos" type="JSON" comment="Dados novos (JSON)"/>
+        <column name="ip_origem" type="VARCHAR(45)" comment="IP de origem da ação"/>
+        <column name="user_agent" type="TEXT" comment="User agent do navegador"/>
+        <column name="timestamp_log" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Timestamp do log"/>
+        <foreignKey name="fk_logs_sistema_usuarios" references="usuarios(id_usuario)" onDelete="SET NULL"/>
+        <index name="idx_logs_acao" columns="acao"/>
+        <index name="idx_logs_timestamp" columns="timestamp_log"/>
+        <index name="idx_logs_tabela" columns="tabela_afetada"/>
+      </table>
+      
+      <!-- Dashboards Table -->
+      <table name="dashboards" comment="Configurações de dashboards personalizados">
+        <column name="id_dashboard" type="INT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único do dashboard"/>
+        <column name="id_usuario" type="INT" notNull="true" comment="Referência ao usuário proprietário"/>
+        <column name="nome" type="VARCHAR(100)" notNull="true" comment="Nome do dashboard"/>
+        <column name="descricao" type="TEXT" comment="Descrição do dashboard"/>
+        <column name="configuracoes" type="JSON" comment="Configurações do dashboard (JSON)"/>
+        <column name="publico" type="TINYINT(1)" notNull="true" default="0" comment="Indica se é público"/>
+        <column name="ativo" type="TINYINT(1)" notNull="true" default="1" comment="Indica se está ativo"/>
+        <column name="data_criacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Data de criação"/>
+        <column name="data_atualizacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" comment="Data de atualização"/>
+        <foreignKey name="fk_dashboards_usuarios" references="usuarios(id_usuario)" onDelete="CASCADE"/>
+        <index name="idx_dashboards_publico" columns="publico"/>
+        <index name="idx_dashboards_ativo" columns="ativo"/>
+      </table>
+      
+      <!-- Relatorios Table -->
+      <table name="relatorios" comment="Configurações de relatórios automáticos">
+        <column name="id_relatorio" type="INT" primaryKey="true" autoIncrement="true" notNull="true" comment="Identificador único do relatório"/>
+        <column name="id_usuario" type="INT" notNull="true" comment="Referência ao usuário proprietário"/>
+        <column name="nome" type="VARCHAR(100)" notNull="true" comment="Nome do relatório"/>
+        <column name="tipo_relatorio" type="ENUM('diario','semanal','mensal','personalizado')" notNull="true" comment="Tipo do relatório"/>
+        <column name="configuracoes" type="JSON" comment="Configurações do relatório (JSON)"/>
+        <column name="frequencia" type="VARCHAR(50)" comment="Frequência de execução (cron)"/>
+        <column name="ativo" type="TINYINT(1)" notNull="true" default="1" comment="Indica se está ativo"/>
+        <column name="proxima_execucao" type="TIMESTAMP" comment="Próxima execução agendada"/>
+        <column name="data_criacao" type="TIMESTAMP" notNull="true" default="CURRENT_TIMESTAMP" comment="Data de criação"/>
+        <foreignKey name="fk_relatorios_usuarios" references="usuarios(id_usuario)" onDelete="CASCADE"/>
+        <index name="idx_relatorios_tipo" columns="tipo_relatorio"/>
+        <index name="idx_relatorios_proxima_execucao" columns="proxima_execucao"/>
+      </table>
+      
+    </tables>
+    
+    <!-- Views Configuration -->
+    <views>
+      <view name="vw_leituras_completas" comment="View para leituras com informações completas">
+        <sql>
+          SELECT 
+            ls.id_leitura,
+            d.nome as dispositivo,
+            d.localizacao,
+            ts.nome as tipo_sensor,
+            s.nome as sensor,
+            ls.timestamp_datetime,
+            ls.valor_numerico,
+            ls.valor_booleano,
+            ls.valor_string,
+            ls.qualidade_dados,
+            ls.anomalia_detectada,
+            mo.nome as modo_operacao,
+            mo.cor_indicador
+          FROM leituras_sensores ls
+          JOIN sensores s ON ls.id_sensor = s.id_sensor
+          JOIN dispositivos d ON s.id_dispositivo = d.id_dispositivo
+          JOIN tipos_sensor ts ON s.id_tipo_sensor = ts.id_tipo_sensor
+          LEFT JOIN modos_operacao mo ON ls.qualidade_dados = mo.nome
+        </sql>
+      </view>
+      
+      <view name="vw_alertas_ativos" comment="View para alertas ativos">
+        <sql>
+          SELECT 
+            a.id_alerta,
+            d.nome as dispositivo,
+            d.localizacao,
+            s.nome as sensor,
+            a.tipo_alerta,
+            a.severidade,
+            a.titulo,
+            a.descricao,
+            a.valor_atual,
+            a.valor_limite,
+            a.timestamp_alerta,
+            mo.cor_indicador
+          FROM alertas a
+          JOIN dispositivos d ON a.id_dispositivo = d.id_dispositivo
+          LEFT JOIN sensores s ON a.id_sensor = s.id_sensor
+          JOIN modos_operacao mo ON a.id_modo = mo.id_modo
+          WHERE a.status = 'ativo'
+        </sql>
+      </view>
+    </views>
+    
+    <!-- Stored Procedures Configuration -->
+    <procedures>
+      <procedure name="sp_inserir_leitura" comment="Procedure para inserir leitura de sensor">
+        <parameters>
+          <parameter name="p_id_sensor" type="INT" mode="IN" comment="ID do sensor"/>
+          <parameter name="p_timestamp_unix" type="DECIMAL(15,3)" mode="IN" comment="Timestamp Unix"/>
+          <parameter name="p_valor_numerico" type="DECIMAL(12,6)" mode="IN" comment="Valor numérico"/>
+          <parameter name="p_valor_booleano" type="TINYINT(1)" mode="IN" comment="Valor booleano"/>
+          <parameter name="p_valor_string" type="VARCHAR(255)" mode="IN" comment="Valor string"/>
+          <parameter name="p_qualidade_dados" type="ENUM" mode="IN" comment="Qualidade dos dados"/>
+        </parameters>
+      </procedure>
+      
+      <procedure name="sp_verificar_limites" comment="Procedure para verificar limites e criar alertas">
+        <parameters>
+          <parameter name="p_id_sensor" type="INT" mode="IN" comment="ID do sensor"/>
+          <parameter name="p_valor" type="DECIMAL(12,6)" mode="IN" comment="Valor a verificar"/>
+        </parameters>
+      </procedure>
+    </procedures>
+    
+    <!-- Triggers Configuration -->
+    <triggers>
+      <trigger name="tr_atualizar_ultima_conexao" comment="Trigger para atualizar última conexão do dispositivo">
+        <event>AFTER INSERT</event>
+        <table>leituras_sensores</table>
+        <action>UPDATE dispositivos SET ultima_conexao = CURRENT_TIMESTAMP WHERE id_dispositivo = (SELECT id_dispositivo FROM sensores WHERE id_sensor = NEW.id_sensor)</action>
+      </trigger>
+    </triggers>
+    
+  </database>
+</configuration>

@@ -1,0 +1,35 @@
+# Diagrama de Fluxo Integrado Completo
+## Sistema IoT Monitoring - Enterprise Challenge Sprint 3 - Reply
+
+Este arquivo contém o diagrama de fluxo integrado completo em formato PNG.
+
+Para visualizar o diagrama:
+1. Abra o arquivo `fluxo_integrado_completo.drawio` no Draw.io
+2. Exporte como PNG
+3. Salve como `fluxo_integrado_completo.png`
+
+O diagrama mostra:
+- **4 Camadas Principais**: Coleta, Processamento, ML, Visualização
+- **Fluxos de Dados**: JSON/CSV → Validação → Persistência → ML → Dashboard
+- **Componentes Técnicos**: ESP32, MQTT, MySQL, Streamlit, Alertas
+- **Formatos de Dados**: JSON, CSV, SQL, HTML
+- **Frequências**: 1Hz coleta, Real-time visualização, Batch ML
+
+## Como Gerar o PNG
+
+1. Acesse [app.diagrams.net](https://app.diagrams.net)
+2. Abra o arquivo `fluxo_integrado_completo.drawio`
+3. Vá em File → Export as → PNG
+4. Configure:
+   - Resolution: 300 DPI
+   - Border: 10px
+   - Background: White
+5. Salve como `fluxo_integrado_completo.png`
+
+## Uso
+
+Este diagrama pode ser usado em:
+- **Apresentações**: Slides de arquitetura
+- **Documentação**: README e documentação técnica
+- **Relatórios**: Relatórios executivos
+- **GitHub**: Visualização no repositório
