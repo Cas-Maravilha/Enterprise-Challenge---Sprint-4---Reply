@@ -13,6 +13,7 @@ Data: 2024
 
 import os
 import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 import time
 import json
 import logging
@@ -32,10 +33,10 @@ import seaborn as sns
 from dotenv import load_dotenv
 
 # Importar módulos do projeto
-from modelos_ia import ModeloEnsemble
-from kpis_negocio import KPIsNegocio
-from monitoramento_drift import MonitoramentoDrift
-from metricas_validacao_detalhadas import MetricasValidacaoDetalhadas
+from src.models.modelos_ia import ModeloEnsemble
+from src.utils.kpis_negocio import KPIsNegocio
+from src.monitoring.monitoramento_drift import MonitoramentoDrift
+from src.evaluation.metricas_validacao_detalhadas import MetricasValidacaoDetalhadas
 
 # Carregar variáveis de ambiente
 load_dotenv()
@@ -57,7 +58,7 @@ class PipelineIntegradoESP32:
     Pipeline integrado para coleta, processamento e análise de dados IoT
     """
     
-    def __init__(self, config_path: str = "config_pipeline.json"):
+    def __init__(self, config_path: str = "configs/config_pipeline.json"):
         """
         Inicializa o pipeline integrado
         
@@ -113,8 +114,8 @@ class PipelineIntegradoESP32:
                 "password": "password"
             },
             "ml": {
-                "modelo_path": "modelos/modelo_anomalia_iot_completo.pkl",
-                "scaler_path": "modelos/scaler_iot.pkl",
+                "modelo_path": "ml/modelo_anomalia_iot_completo.pkl",
+                "scaler_path": "ml/scaler_iot.pkl",
                 "threshold_anomalia": 0.5,
                 "retreinar_intervalo_horas": 24
             },

@@ -9,6 +9,7 @@ Data: 2024
 
 import os
 import sys
+sys.path.insert(0, os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')), 'src'))
 import json
 import time
 import logging
@@ -19,15 +20,15 @@ from datetime import datetime
 from typing import Dict, Any
 
 # Importar módulos do projeto
-from persistencia_banco_relacional import (
+from utils.persistencia_banco_relacional import (
     PersistenciaBancoRelacional, 
     ConfiguracaoBanco
 )
-from sistema_ml_completo import (
+from utils.sistema_ml_completo import (
     SistemaMLCompleto,
     ConfiguracaoML
 )
-from integracao_ml_pipeline import (
+from utils.integracao_ml_pipeline import (
     IntegracaoMLPipeline,
     ConfiguracaoMQTT
 )
@@ -45,7 +46,7 @@ class ExecutadorMLCompleto:
     Executador do sistema completo de ML
     """
     
-    def __init__(self, config_arquivo: str = "config_pipeline.json"):
+    def __init__(self, config_arquivo: str = "configs/config_pipeline.json"):
         self.config_arquivo = config_arquivo
         self.config = self._carregar_configuracao()
         self.executando = False
@@ -85,7 +86,7 @@ class ExecutadorMLCompleto:
                 "client_id": "ml_pipeline_esp32"
             },
             "ml": {
-                "modelo_path": "modelos/",
+                "modelo_path": "ml/",
                 "retreinar_intervalo_horas": 24,
                 "threshold_anomalia": 0.5,
                 "min_amostras_treino": 1000

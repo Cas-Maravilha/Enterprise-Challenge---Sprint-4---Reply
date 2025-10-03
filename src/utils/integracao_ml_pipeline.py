@@ -20,15 +20,15 @@ import paho.mqtt.client as mqtt
 import numpy as np
 
 # Importar módulos do projeto
-from persistencia_banco_relacional import (
+from .persistencia_banco_relacional import (
     PersistenciaBancoRelacional, 
     ConfiguracaoBanco
 )
-from integracao_persistencia_esp32 import (
+from .integracao_persistencia_esp32 import (
     IntegracaoPersistenciaESP32,
     ConfiguracaoMQTT
 )
-from sistema_ml_completo import (
+from .sistema_ml_completo import (
     SistemaMLCompleto,
     ConfiguracaoML
 )

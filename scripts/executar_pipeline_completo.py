@@ -17,6 +17,9 @@ import logging
 from datetime import datetime
 from typing import List, Dict
 
+# Adicionar o diretório src ao sys.path
+sys.path.insert(0, os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')), 'src'))
+
 # Configurar logging
 logging.basicConfig(
     level=logging.INFO,
@@ -38,17 +41,17 @@ class ExecutadorPipelineCompleto:
         # Configurações dos componentes
         self.componentes = {
             'coletor_wokwi': {
-                'script': 'coletor_dados_wokwi.py',
+                'script': 'src/data/coletor_dados_wokwi.py',
                 'descricao': 'Coletor de dados ESP32 (Wokwi)',
                 'obrigatorio': True
             },
             'pipeline_integrado': {
-                'script': 'pipeline_integrado_esp32.py',
+                'script': 'src/utils/pipeline_integrado_esp32.py',
                 'descricao': 'Pipeline integrado principal',
                 'obrigatorio': True
             },
             'dashboard': {
-                'script': 'interactive_dashboard.py',
+                'script': 'src/utils/interactive_dashboard.py',
                 'descricao': 'Dashboard interativo',
                 'obrigatorio': False
             }
@@ -95,13 +98,13 @@ class ExecutadorPipelineCompleto:
         logger.info("Verificando arquivos...")
         
         arquivos_necessarios = [
-            'pipeline_integrado_esp32.py',
-            'coletor_dados_wokwi.py',
-            'config_pipeline.json',
-            'modelos_ia.py',
-            'kpis_negocio.py',
-            'monitoramento_drift.py',
-            'metricas_validacao_detalhadas.py'
+            'src/utils/pipeline_integrado_esp32.py',
+            'src/data/coletor_dados_wokwi.py',
+            'configs/config_pipeline.json',
+            'src/models/modelos_ia.py',
+            'src/utils/kpis_negocio.py',
+            'src/monitoring/monitoramento_drift.py',
+            'src/evaluation/metricas_validacao_detalhadas.py'
         ]
         
         arquivos_faltando = []
@@ -126,7 +129,10 @@ class ExecutadorPipelineCompleto:
         
         try:
             import mysql.connector
-            from config_pipeline import config
+            import json
+
+            with open('configs/config_pipeline.json', 'r') as f:
+                config = json.load(f)
             
             # Tentar conectar
             connection = mysql.connector.connect(
@@ -154,7 +160,7 @@ class ExecutadorPipelineCompleto:
         """Verifica se o modelo ML está disponível"""
         logger.info("Verificando modelo ML...")
         
-        modelo_path = "modelos/modelo_anomalia_iot_completo.pkl"
+        modelo_path = "ml/modelo_anomalia_iot_completo.pkl"
         
         if os.path.exists(modelo_path):
             logger.info("✅ Modelo ML encontrado")
@@ -242,7 +248,7 @@ class ExecutadorPipelineCompleto:
             return False
         
         # 3. Dashboard (opcional)
-        if os.path.exists('interactive_dashboard.py'):
+        if os.path.exists('src/utils/interactive_dashboard.py'):
             self.executar_componente('dashboard')
         
         # Iniciar monitoramento
