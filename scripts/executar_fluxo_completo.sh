@@ -85,10 +85,10 @@ log "Iniciando coleta de dados..."
 
 # Verificar arquivos de coleta
 arquivos_coleta=(
-    "coleta_ingestao_esp32.ino"
-    "wokwi_simulacao_esp32.json"
-    "coletor_dados_serial.py"
-    "simulador_dados_esp32.py"
+    "src/data/coleta_ingestao_esp32.ino"
+    "configs/wokwi_simulacao_esp32.json"
+    "src/data/coletor_dados_serial.py"
+    "src/data/simulador_dados_esp32.py"
 )
 
 for arquivo in "${arquivos_coleta[@]}"; do
@@ -102,8 +102,8 @@ done
 
 # Executar simulador de dados
 log "Executando simulador de dados..."
-if [ -f "simulador_dados_esp32.py" ]; then
-    python simulador_dados_esp32.py --duracao 60 --frequencia 1 > "$EVIDENCIAS_DIR/simulador_output.txt" 2>&1 &
+if [ -f "src/data/simulador_dados_esp32.py" ]; then
+    python src/data/simulador_dados_esp32.py --duracao 60 --frequencia 1 > "$EVIDENCIAS_DIR/simulador_output.txt" 2>&1 &
     SIMULADOR_PID=$!
     sleep 5
     kill $SIMULADOR_PID 2>/dev/null
@@ -122,10 +122,10 @@ log "Iniciando persistência de dados..."
 
 # Verificar arquivos de banco
 arquivos_banco=(
-    "criar_tabelas_iot.sql"
-    "carga_dados_iot.sql"
-    "persistencia_banco_relacional.py"
-    "integracao_persistencia_esp32.py"
+    "database/criar_tabelas_iot.sql"
+    "database/carga_dados_iot.sql"
+    "src/utils/persistencia_banco_relacional.py"
+    "src/utils/integracao_persistencia_esp32.py"
 )
 
 for arquivo in "${arquivos_banco[@]}"; do
@@ -139,8 +139,8 @@ done
 
 # Executar criação do banco
 log "Criando estrutura do banco..."
-if [ -f "criar_tabelas_iot.sql" ]; then
-    mysql -u iot_user -p'iot_password' iot_monitoring_db < criar_tabelas_iot.sql > "$EVIDENCIAS_DIR/banco_criacao.txt" 2>&1
+if [ -f "database/criar_tabelas_iot.sql" ]; then
+    mysql -u iot_user -p'iot_password' iot_monitoring_db < database/criar_tabelas_iot.sql > "$EVIDENCIAS_DIR/banco_criacao.txt" 2>&1
     if [ $? -eq 0 ]; then
         success "Banco criado com sucesso"
         capturar_evidencia "PERSISTENCIA" "Criação do banco" "$EVIDENCIAS_DIR/banco_criacao.txt"
@@ -153,8 +153,8 @@ fi
 
 # Executar carga de dados
 log "Carregando dados iniciais..."
-if [ -f "carga_dados_iot.sql" ]; then
-    mysql -u iot_user -p'iot_password' iot_monitoring_db < carga_dados_iot.sql > "$EVIDENCIAS_DIR/banco_carga.txt" 2>&1
+if [ -f "database/carga_dados_iot.sql" ]; then
+    mysql -u iot_user -p'iot_password' iot_monitoring_db < database/carga_dados_iot.sql > "$EVIDENCIAS_DIR/banco_carga.txt" 2>&1
     if [ $? -eq 0 ]; then
         success "Dados carregados com sucesso"
         capturar_evidencia "PERSISTENCIA" "Carga de dados" "$EVIDENCIAS_DIR/banco_carga.txt"
@@ -197,10 +197,10 @@ log "Iniciando processamento ML..."
 
 # Verificar arquivos de ML
 arquivos_ml=(
-    "ml_basico_integrado.py"
-    "dataset_ml_analisador.py"
-    "ml_anomaly_detection_completo.py"
-    "usar_modelo_ml.py"
+    "src/models/ml_basico_integrado.py"
+    "src/data/dataset_ml_analisador.py"
+    "src/models/ml_anomaly_detection_completo.py"
+    "src/utils/usar_modelo_ml.py"
 )
 
 for arquivo in "${arquivos_ml[@]}"; do
@@ -214,8 +214,8 @@ done
 
 # Executar ML básico
 log "Executando ML básico integrado..."
-if [ -f "ml_basico_integrado.py" ]; then
-    python ml_basico_integrado.py > "$EVIDENCIAS_DIR/ml_basico_output.txt" 2>&1
+if [ -f "src/models/ml_basico_integrado.py" ]; then
+    python src/models/ml_basico_integrado.py > "$EVIDENCIAS_DIR/ml_basico_output.txt" 2>&1
     if [ $? -eq 0 ]; then
         success "ML básico executado com sucesso"
         capturar_evidencia "ML" "Output do ML básico" "$EVIDENCIAS_DIR/ml_basico_output.txt"
@@ -228,8 +228,8 @@ fi
 
 # Executar análise do dataset
 log "Executando análise do dataset..."
-if [ -f "dataset_ml_analisador.py" ]; then
-    python dataset_ml_analisador.py > "$EVIDENCIAS_DIR/dataset_analise_output.txt" 2>&1
+if [ -f "src/data/dataset_ml_analisador.py" ]; then
+    python src/data/dataset_ml_analisador.py > "$EVIDENCIAS_DIR/dataset_analise_output.txt" 2>&1
     if [ $? -eq 0 ]; then
         success "Análise do dataset executada"
         capturar_evidencia "ML" "Análise do dataset" "$EVIDENCIAS_DIR/dataset_analise_output.txt"
@@ -242,12 +242,12 @@ fi
 
 # Verificar arquivos gerados pelo ML
 arquivos_ml_gerados=(
-    "modelo_anomalia.pkl"
-    "modelo_temperatura.pkl"
-    "scaler.pkl"
-    "relatorio_ml_basico.json"
-    "ml_basico_visualizacoes.png"
-    "analise_dataset_ml.png"
+    "ml/modelo_anomalia.pkl"
+    "ml/modelo_temperatura.pkl"
+    "ml/scaler.pkl"
+    "reports/relatorio_ml_basico.json"
+    "images/ml_basico_visualizacoes.png"
+    "images/analise_dataset_ml.png"
 )
 
 for arquivo in "${arquivos_ml_gerados[@]}"; do
@@ -268,10 +268,10 @@ log "Iniciando visualização e alertas..."
 
 # Verificar arquivos de visualização
 arquivos_viz=(
-    "dashboard_visualizacao_alertas.py"
-    "sistema_alertas_avancado.py"
-    "kpis_negocio.py"
-    "metricas_validacao_detalhadas.py"
+    "src/utils/dashboard_visualizacao_alertas.py"
+    "src/monitoring/sistema_alertas_avancado.py"
+    "src/utils/kpis_negocio.py"
+    "src/evaluation/metricas_validacao_detalhadas.py"
 )
 
 for arquivo in "${arquivos_viz[@]}"; do
@@ -285,8 +285,8 @@ done
 
 # Executar sistema de alertas
 log "Executando sistema de alertas..."
-if [ -f "sistema_alertas_avancado.py" ]; then
-    python sistema_alertas_avancado.py > "$EVIDENCIAS_DIR/alertas_output.txt" 2>&1
+if [ -f "src/monitoring/sistema_alertas_avancado.py" ]; then
+    python src/monitoring/sistema_alertas_avancado.py > "$EVIDENCIAS_DIR/alertas_output.txt" 2>&1
     if [ $? -eq 0 ]; then
         success "Sistema de alertas executado"
         capturar_evidencia "VISUALIZACAO" "Output do sistema de alertas" "$EVIDENCIAS_DIR/alertas_output.txt"
@@ -299,8 +299,8 @@ fi
 
 # Verificar arquivos gerados pelos alertas
 arquivos_alertas_gerados=(
-    "historico_alertas.json"
-    "sistema_alertas.log"
+    "reports/historico_alertas.json"
+    "logs/sistema_alertas.log"
 )
 
 for arquivo in "${arquivos_alertas_gerados[@]}"; do
@@ -314,8 +314,8 @@ done
 
 # Executar dashboard (em background)
 log "Iniciando dashboard..."
-if [ -f "dashboard_visualizacao_alertas.py" ]; then
-    streamlit run dashboard_visualizacao_alertas.py --server.port 8501 > "$EVIDENCIAS_DIR/dashboard_output.txt" 2>&1 &
+if [ -f "src/utils/dashboard_visualizacao_alertas.py" ]; then
+    streamlit run src/utils/dashboard_visualizacao_alertas.py --server.port 8501 > "$EVIDENCIAS_DIR/dashboard_output.txt" 2>&1 &
     DASHBOARD_PID=$!
     sleep 10
     kill $DASHBOARD_PID 2>/dev/null
@@ -361,10 +361,11 @@ fi
 # Verificar arquivos de log
 log "Verificando arquivos de log..."
 arquivos_log=(
-    "*.log"
-    "*.json"
-    "*.png"
-    "*.pkl"
+    "logs/*.log"
+    "reports/*.json"
+    "images/*.png"
+    "graficos/*.png"
+    "ml/*.pkl"
 )
 
 for pattern in "${arquivos_log[@]}"; do
@@ -410,10 +411,10 @@ EVIDÊNCIAS CAPTURADAS: $total_evidencias arquivos
 
 ARQUIVOS PRINCIPAIS:
 - Evidências: $EVIDENCIAS_DIR/
-- Logs: *.log
-- Dados: *.json
-- Modelos: *.pkl
-- Visualizações: *.png
+- Logs: logs/*.log
+- Dados: reports/*.json
+- Modelos: ml/*.pkl
+- Visualizações: images/*.png, graficos/*.png
 
 STATUS: EXECUÇÃO CONCLUÍDA COM SUCESSO
 EOF

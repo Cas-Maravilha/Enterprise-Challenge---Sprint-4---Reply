@@ -29,11 +29,11 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Importar módulos do projeto
-from persistencia_banco_relacional import (
+from .persistencia_banco_relacional import (
     PersistenciaBancoRelacional, 
     ConfiguracaoBanco
 )
-from sistema_ml_completo import (
+from .sistema_ml_completo import (
     SistemaMLCompleto,
     ConfiguracaoML
 )
@@ -831,10 +831,10 @@ def criar_template_dashboard():
     """
     
     # Cria diretório de templates se não existir
-    os.makedirs('templates', exist_ok=True)
+    os.makedirs('dashboard/templates', exist_ok=True)
     
     # Salva template
-    with open('templates/dashboard.html', 'w', encoding='utf-8') as f:
+    with open('dashboard/templates/dashboard.html', 'w', encoding='utf-8') as f:
         f.write(template_html)
     
     logger.info("Template HTML do dashboard criado")

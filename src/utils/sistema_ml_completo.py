@@ -31,7 +31,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Importar módulos do projeto
-from persistencia_banco_relacional import (
+from .persistencia_banco_relacional import (
     PersistenciaBancoRelacional, 
     ConfiguracaoBanco
 )

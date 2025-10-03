@@ -9,6 +9,7 @@ Data: 2024
 
 import os
 import sys
+sys.path.insert(0, os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')), 'src'))
 import json
 import time
 import logging
@@ -19,15 +20,15 @@ from datetime import datetime
 from typing import Dict, Any
 
 # Importar módulos do projeto
-from persistencia_banco_relacional import (
+from utils.persistencia_banco_relacional import (
     PersistenciaBancoRelacional, 
     ConfiguracaoBanco
 )
-from dashboard_kpis_completo import (
+from utils.dashboard_kpis_completo import (
     DashboardKPIsCompleto,
     ConfiguracaoDashboard
 )
-from sistema_relatorios_automaticos import (
+from utils.sistema_relatorios_automaticos import (
     SistemaRelatoriosAutomaticos,
     ConfiguracaoRelatorios
 )
@@ -45,7 +46,7 @@ class ExecutadorDashboardCompleto:
     Executador do sistema completo de dashboard
     """
     
-    def __init__(self, config_arquivo: str = "config_pipeline.json"):
+    def __init__(self, config_arquivo: str = "configs/config_pipeline.json"):
         self.config_arquivo = config_arquivo
         self.config = self._carregar_configuracao()
         self.executando = False
@@ -265,7 +266,7 @@ class ExecutadorDashboardCompleto:
                     return False
             
             # Teste 3: Verificar template do dashboard
-            template_path = "templates/dashboard.html"
+            template_path = "dashboard/templates/dashboard.html"
             if os.path.exists(template_path):
                 logger.info("✅ Teste do template: SUCESSO")
             else:
